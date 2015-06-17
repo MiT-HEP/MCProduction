@@ -1,0 +1,13 @@
+
+#emacs
+*~
+
+#vim
+*swp
+
+#python
+*pyc
+
+#ROOT
+*root
+
