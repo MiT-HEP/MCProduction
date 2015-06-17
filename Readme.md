@@ -1,11 +1,9 @@
-HplusToTauNu_M_200_TuneCUETP8M1_tauola_13TeV_pythia8_cfi.py
-PYTHIA6_Tauola_TTbar_H200_taunu_13TeV_cff.py
-PYTHIA6_Tauola_TTbar_H500_taunu_13TeV_cff.py
-
 # cmsDriver: python generation
 These steps will produce the step.py files used by the generation process
 ## Create Symlinks
 ```
+cmsrel CMSSW_7_4_5
+cd !$
 cmsenv
 cd MCProduction/ThirteenTeV
 scram b -j 16
@@ -62,4 +60,7 @@ cmsDriver.py step3 --filein file:step2.root  \
 
 #Grid Submission
 ## STEP 1
-
+* Go in test, edit crabStep1.py
+```
+crab submit crabStep1.py
+```
