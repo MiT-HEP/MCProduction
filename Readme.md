@@ -47,7 +47,7 @@ cmsDriver.py step2 --filein file:step1.root --fileout file:step2.root  \
 ```
 
 ## STEP 3 
-Step 3 produces MINIAOD out of them (Unfortunately, in CMSSW_7_2_X for the moment)
+Step 3 produces MINIAOD out of them (CMSSW_7_4_5)
 ```
 cmsDriver.py step3 --filein file:step2.root  \
 --fileout file:step3.root --mc \
