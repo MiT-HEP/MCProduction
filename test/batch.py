@@ -6,6 +6,8 @@ from subprocess import call,check_output
 
 from optparse import OptionParser
 
+from library import *
+
 usage = ''' Examples:
 	\t python batch.py -n 100 -q 1nh -f MCProduction/ThirteenTeV/python/HplusToTauNu_M_500_TuneCUETP8M1_tauola_13TeV_pythia8_cfi.py  -d mysub/step1 --put-in /store/user/amarini/mc/batch/HplusToTauNu-M500/RunII/GEN-SIM-RAW -s step1
 	\t python batch.py -n 100 -q 1nh  -d mysub/step2  -e /store/user/amarini/mc/HplusToTauNu-M500/ --put-in /store/user/amarini/mc/batch/HplusToTauNu-M500/RunII/AODSIM -s step2
@@ -22,40 +24,10 @@ parser.add_option("" ,"--put-in", dest="putin", type="string",help = "outputDir 
 
 parser.add_option("-s" ,"--step", dest="step", type="string",help= "step  [default=%default]" , default="step1")
 parser.add_option("" ,"--status", dest="status", action="store_true",help= "show status of dir [default=%default]" , default=False)
+parser.add_option("" ,"--follow", dest="follow", action="store_true",help= "follow eos directory, and if new files are created look into submission [default=%default]" , default=False)
+parser.add_option("" ,"--dryrun", dest="dryrun", action="store_true",help= "do not submit jobs [default=%default]" , default=False)
 
 opts, args = parser.parse_args()
-
-def PrintSummary(dir, doPrint=True):
-        ''' Print summary informations for dir'''
-	from glob import glob
-        run  = glob(dir + "/*run")
-        fail = glob(dir + "/*fail")
-        done = glob(dir + "/*done")
-
-        ## bash color string
-        red="\033[01;31m"
-        green = "\033[01;32m"
-        yellow = "\033[01;33m"
-        white = "\033[00m"
-
-        run = [ re.sub('\.run','' , re.sub('.*/sub_','', r) ) for r in run ]
-        fail = [ re.sub('\.fail','' , re.sub('.*/sub_','', r) ) for r in fail ]
-        done = [ re.sub('\.done','' , re.sub('.*/sub_','', r) ) for r in done ]
-
-        tot = len(run) + len(fail) + len(done)
-
-        color = red
-        if len(run) > len(fail) and len(run) > len(done) : color= yellow
-        if len(done) == tot and tot >0 : color = green
-
-        if doPrint:
-                print " ----  Directory "+ color+opts.dir+white+" --------"
-                print " Run : " + yellow + "%3d"%len(run) + " / "  + str(tot) + white + " : " + PrintLine(run)  ### + ",".join(run)  + "|" 
-                print " Fail: " + red    + "%3d"%len(fail) + " / " + str(tot) + white + " : " + PrintLine(fail) ### + ",".join(fail) + "|" 
-                print " Done: " + green  + "%3d"%len(done) + " / " + str(tot) + white + " : " + PrintLine(done) ### + ",".join(done) + "|" 
-                print " -------------------------------------"
-
-        return ( done, run, fail)
 
 if opts.status:
         PrintSummary(opts.dir)
@@ -64,50 +36,29 @@ if opts.status:
 PWD=os.getcwd()
 
 ## get list of input files
-EOS = "/afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select"
 
 ## check if working directory exists
-cmd = "[ -d "+ opts.dir+" ]"
-status = call( cmd , shell=True)
+status = CheckDir(opts.dir)
 
-if status == 0:
-        print "Directory",opts.dir,"already exists"
-        cmd =  "rmdir " + opts.dir
-        status = call(cmd, shell = True)
-        if status !=0:
-                print "Directory",opts.dir,"is not empty"
-                raise Exception('Directory not empty')
+if status == 0 and not opts.follow:
+      print "Directory",opts.dir,"is not empty"
+      raise Exception('Directory not empty')
 
 ## creating a working directory
-cmd = ["mkdir","-p", opts.dir]
-call(cmd)
+MkDir(opts.dir)
 
-def chunks(l, n):
-    """ Yield successive n-sized chunks from l.
-    """
-    for i in xrange(0, len(l), n):
-        yield l[i:i+n]
+if opts.eos != "":
+	fileList=GetEosFileList(opts.eos)
+else:
+	fileList = []
 
-def chunksNum( l, tot):
-    """ Yield successive n-sized chunks form l, in total number tot"""
-    if len(l) % tot == 0:
-        ChunkSize = len(l) / tot
-    else:
-        ChunkSize = (len(l) / tot) + 1
-    return chunks(l,ChunkSize)
-
-
-cmd = EOS+ " find -f " + opts.eos
-print "Going to call cmd:",cmd
-outputList = check_output(cmd,shell=True)
-fileList0 = outputList.split() ## change lines into list
-fileList = [ '"' + re.sub("/eos/cms","",f) +'"' for f in fileList0 ]
-
-
-if len(fileList) == 0:
+if len(fileList) == 0 and opts.eos != "":
         print "ERROR no file is given"
-        if opts.eos != "":
-                print "eos cmd was:",cmd
+	raise Exception('No file tu run')
+
+if opts.follow:
+	## jobN file
+	maxn,fileList = ReadFromDatabase(opts.dir + "/database.txt",fileList )
 
 fileChunks = chunksNum(fileList, opts.nJobs)
 
@@ -157,21 +108,17 @@ Step3 += "--customise Configuration/DataProcessing/Utils.addMonitoring "
 Step3 += "-n -1 "
 driver['step3'] = Step3
 
-cmdFile = open(opts.dir+"/cmdFile.sh","w")
+cmdFile = open(opts.dir+"/cmdFile.sh","a")
 
 for idx,fl in enumerate(fileChunks):
+	if opts.follow:
+		idx += maxn
+		for f in fl:
+			WriteIntoDatabase( opts.dir + "/database.txt" ,idx,f)
 	## open a script file
-	shName = opts.dir + "/sub_%d.sh"%idx
-	sh = open( shName,"w") 
-	sh.write("#!/bin/bash\n")
-	call("chmod u+x "+ shName , shell=True)
-	sh.write("cd %s\n"%PWD)
-	sh.write("eval `scramv1 runtime -sh`\n") #cmsenv
-	sh.write("touch "+PWD+"/"+opts.dir+"/sub_"+str(idx) + ".run\n")
-	sh.write("rm "+PWD+"/"+opts.dir+"/sub_"+str(idx) + ".done\n")
-	sh.write("rm "+PWD+"/"+opts.dir+"/sub_"+str(idx) + ".fail\n")
-	sh.write('[ "${WORKDIR}" == "" ] && export WORKDIR=/tmp/$USER/ \n') ## make the script work on interactive lxplus
-	sh.write('cd $WORKDIR \n' )
+	shName,sh = OpenSh(opts.dir,idx)
+	BeginJobStatusFiles(sh,opts.dir,idx)
+	CdWorkDir(sh)
 	
 	cmd = driver[opts.step]	
 	fileIn = ','.join(fl)
@@ -187,15 +134,13 @@ for idx,fl in enumerate(fileChunks):
 
 	sh.write("STAGE=$?\n")
 
-	sh.write("rm "+PWD+"/"+opts.dir+"/sub_"+str(idx) + ".run\n")
-	sh.write("[ \"${EXIT}\" == \"0\" ] && [ \"${STAGE}\" == \"0\" ] && touch "+PWD+"/"+opts.dir+"/sub_"+str(idx) + ".done\n")
-	sh.write("[ \"${EXIT}\" == \"0\" ] || echo \"exit code : ${EXIT}\"> "+PWD+"/"+opts.dir+"/sub_"+str(idx) + ".fail\n")
-	sh.write("[ \"${STAGE}\" == \"0\" ] || echo \"stage code : ${STAGE}\">> "+PWD+"/"+opts.dir+"/sub_"+str(idx) + ".fail\n")
+	EndJobStatusFiles(sh,opts.dir,idx)	
 
-
-	bsub = "bsub -q " + opts.queue + " -J " + opts.dir + "_"+str(idx) + " "
-	bsub += PWD + "/" + shName
+	bsub =BsubCmd(opts.queue,opts.dir,idx)
 
 	print >> cmdFile, bsub
+
 	print bsub
+	if not opts.dryrun: 
+		call(bsub,shell=True)
 
