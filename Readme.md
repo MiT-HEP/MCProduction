@@ -58,6 +58,26 @@ cmsDriver.py step3 --filein file:step2.root  \
 -n 10 
 ```
 
+## STEP1+2
+Produce directly AOD w/o storing the GEN-RAW-SIM
+```
+cmsDriver.py \
+MCProduction/ThirteenTeV/python/HplusToTauNu_M_900_TuneCUETP8M1_tauola_13TeV_pythia8_cfi.py \
+--mc \
+--eventcontent AODSIM \
+--datatier AODSIM \
+--pileup 2015_25ns_Startup_PoissonOOTPU \
+--pileup_input dbs:/MinBias_TuneCUETP8M1_13TeV-pythia8/RunIIWinter15GS-MCRUN2_71_V1-v1/GEN-SIM \
+--customise SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1,Configuration/DataProcessing/Utils.addMonitoring \
+--conditions MCRUN2_74_V9 \
+--magField 38T_PostLS1 \
+--step GEN,SIM,DIGI,L1,DIGI2RAW,HLT:@frozen25ns,RAW2DIGI,L1Reco,RECO \
+--python_filename step12.py  \
+--no_exec \
+--fileout file:step2.root \
+-n 100
+```
+
 #Grid Submission
 ## STEP 1
 * Go in test, edit crabStep1.py

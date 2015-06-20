@@ -68,7 +68,7 @@ def PrintSummary(dir, doPrint=True):
 
         if doPrint:
                 print " ----  Directory "+ color+dir+white+" --------"
-		print " Pend: " + yellow + "%3d"%pend  + " / " + str(tot) + white + " : " + PrintLine(pend) 
+		print " Pend: " + yellow + "%3d"%len(pend)  + " / " + str(tot) + white + " : " + PrintLine(pend) 
                 print " Run : " + yellow + "%3d"%len(run) + " / "  + str(tot) + white + " : " + PrintLine(run)  ### + ",".join(run)  + "|" 
                 print " Fail: " + red    + "%3d"%len(fail) + " / " + str(tot) + white + " : " + PrintLine(fail) ### + ",".join(fail) + "|" 
                 print " Done: " + green  + "%3d"%len(done) + " / " + str(tot) + white + " : " + PrintLine(done) ### + ",".join(done) + "|" 

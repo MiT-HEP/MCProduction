@@ -17,7 +17,7 @@ config.Data.inputDBS = 'phys03'
 config.Data.ignoreLocality = True
 
 config.Data.splitting = 'FileBased'
-config.Data.unitsPerJob = 20
+config.Data.unitsPerJob = 1
 config.Data.totalUnits = -1
 config.Data.outLFNDirBase = '/store/user/%s/mc/' % (getUsernameFromSiteDB())
 config.Data.publication = True
