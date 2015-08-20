@@ -29,7 +29,6 @@ using namespace std;
 AsciiReaderGunProducer::AsciiReaderGunProducer(const edm::ParameterSet& pset) :
 	fEvt(0)
 {
-  edm::ParameterSet defpset ;
   edm::ParameterSet pgun_params =  pset.getParameter<edm::ParameterSet>("PGunParameters") ;
   
   fileName = pgun_params.getParameter<string>("fileName");
