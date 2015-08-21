@@ -1,11 +1,12 @@
 import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
-generator = cms.EDProducer("Pythia8PtGun",
+
+generator = cms.EDProducer("AsciiReaderGunProducer",
                          pythia8CommonSettingsBlock,
                          pythia8CUEP8M1SettingsBlock,
-                         PGunParameters = cms.PSet(
-			 fileName = "ascii.txt",
+        PGunParameters = cms.PSet(
+			fileName = "embedding.txt",
         		),
         pythiaTauJets = cms.vstring(
         		'ParticleDecays:sophisticatedTau = 2',

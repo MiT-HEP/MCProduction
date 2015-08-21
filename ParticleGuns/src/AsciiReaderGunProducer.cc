@@ -167,3 +167,11 @@ void AsciiReaderGunProducer::endRunProduce(Run &run, const EventSetup& es )
    std::auto_ptr<GenRunInfoProduct> genRunInfo( new GenRunInfoProduct() );
    run.put( genRunInfo );
 }
+
+void AsciiReaderGunProducer::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
+  //The following says we do not know what parameters are allowed so do no validation
+  // Please change this to state exactly what you do use, even if it is no parameters
+  edm::ParameterSetDescription desc;
+  desc.setUnknown();
+  descriptions.addDefault(desc);
+}

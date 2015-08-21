@@ -12,6 +12,10 @@
 #include "FWCore/Framework/interface/ESHandle.h"
 #include "FWCore/Framework/interface/EventSetup.h"
 #include "FWCore/Framework/interface/Run.h"
+#include "FWCore/Framework/interface/Event.h"
+#include "FWCore/Framework/interface/Frameworkfwd.h"
+#include "FWCore/Framework/interface/MakerMacros.h"
+#include "FWCore/ParameterSet/interface/ParameterSet.h"
 
 #include <memory>
 #include "boost/shared_ptr.hpp"
@@ -27,11 +31,14 @@ namespace edm {
     AsciiReaderGunProducer(const ParameterSet &);
     virtual ~AsciiReaderGunProducer();
 
+    static void fillDescriptions(edm::ConfigurationDescriptions& descriptions);
+
+    //
     void beginRun(const edm::Run&, const edm::EventSetup&) override;
     void endRun(const edm::Run& r, const edm::EventSetup&) override;
     void endRunProduce(edm::Run& r, const edm::EventSetup&) override;
     
-    //---
+    //--- open and close the ascii file stream
     void beginJob() override;
     void endJob() override;
 
