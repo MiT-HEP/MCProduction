@@ -22,29 +22,29 @@
 #include <fstream>
 #include <sstream>
 
+#include "GeneratorInterface/Pythia8Interface/interface/Py8GunBase.h"
+#include "GeneratorInterface/Core/interface/GeneratorFilter.h"
+#include "GeneratorInterface/ExternalDecays/interface/ExternalDecayDriver.h"
 
-namespace edm {
-  
-  class AsciiReaderGunProducer : public one::EDProducer<one::WatchRuns, EndRunProducer> {
+namespace gen {
+
+  class AsciiReaderGunProducer : public Py8GunBase {
+//public one::EDProducer<one::WatchRuns, EndRunProducer> {
   
   public:
-    AsciiReaderGunProducer(const ParameterSet &);
+    AsciiReaderGunProducer(const edm::ParameterSet &);
     virtual ~AsciiReaderGunProducer();
 
-    static void fillDescriptions(edm::ConfigurationDescriptions& descriptions);
+    bool generatePartonsAndHadronize() override;
+    const char* classname() const override { return "AsciiReaderGunProducer";}
 
-    //
-    void beginRun(const edm::Run&, const edm::EventSetup&) override;
-    void endRun(const edm::Run& r, const edm::EventSetup&) override;
-    void endRunProduce(edm::Run& r, const edm::EventSetup&) override;
-    
+
     //--- open and close the ascii file stream
-    void beginJob() override;
-    void endJob() override;
+    void beginJob() ;
+    void endJob() ;
 
   private:
    
-    virtual void produce(Event & e, const EventSetup& es) override;
     std::ifstream ascii;
     
   protected :
@@ -53,14 +53,13 @@ namespace edm {
     
     std::string fileName ; 
 
-    HepMC::GenEvent* fEvt;
-
-    ESHandle<HepPDT::ParticleDataTable> fPDGTable ;
-
     int  fVerbosity ;
      // format in the file should be pdgid pt eta phi m
 
   };
+
+  
+  typedef edm::GeneratorFilter<gen::AsciiReaderGunProducer, gen::ExternalDecayDriver> AsciiReaderGun;
 } 
 
 #endif
