@@ -30,6 +30,11 @@ using namespace gen;
 AsciiReaderGunProducer::AsciiReaderGunProducer(const edm::ParameterSet& pset) :
 	Py8GunBase(pset)
 {
+
+  cout <<"******************************"<<endl;
+  cout <<"*   AsciiReaderGunProducer   *"<<endl;
+  cout <<"******************************"<<endl;
+
   edm::ParameterSet pgun_params =  pset.getParameter<edm::ParameterSet>("PGunParameters") ;
 
   fileName = pgun_params.getParameter<string>("fileName");
@@ -68,12 +73,15 @@ bool AsciiReaderGunProducer::generatePartonsAndHadronize()
   // read a valid line from the input file
   // make sure to read a line
   string token = "";
-  while( token != "" and token[0] != '#' ){
- 	 getline ( ascii, token);
+  if ( fVerbosity >1) cout <<"[AsciiReader]::[DEBUG] token line: '"<<token<<"'"<<endl;
+
+  while( token == "" or token[0] == '#' ){
  	 if (ascii.eof() ) {
  	   	throw cms::Exception("End Of File")
  	     	<< "Encountered End of File "<< fileName << " while processing entries"<<endl;;
  	 	}
+ 	 getline ( ascii, token);
+  	if ( fVerbosity >1) cout <<"[AsciiReader]::[DEBUG] token line: '"<<token<<"'"<<endl;
   }
   stringstream ss(token); // convert into a stream
   
@@ -83,8 +91,13 @@ bool AsciiReaderGunProducer::generatePartonsAndHadronize()
    * 0 0 0 2  11  50. 2.2 3.1 13 52. 2.1 2.2
    */
 
+  int runNum  ; ss >> runNum  ;
+  int lumiNum ; ss >> lumiNum ;
+  int eventNum; ss >> eventNum;
+
   int barcode = 1 ;
   unsigned int np =1 ; ss >> np;
+  if( fVerbosity>1) cout <<"[AsciiReader]::[DEBUG] Producing event with np="<< np<<endl;
 
   for (unsigned int ip=0; ip < np; ++ip) {
     int particleID ; ss >> particleID  ;
@@ -92,6 +105,10 @@ bool AsciiReaderGunProducer::generatePartonsAndHadronize()
     double eta ; ss >> eta;
     double phi ; ss >> phi;
     double mass = (fMasterGen->particleData).m0( particleID );
+
+    if (fVerbosity>1){
+   	cout << "[AsciiReader]::[DEBUG] Producing event with pdg="<< particleID<<" pt="<<pt<<" eta"<<eta<<" phi="<<phi<<" mass="<<mass<<endl;
+    }
 
     // Translate to a TLorentzVector for the Math
     TLorentzVector lv;
@@ -106,13 +123,20 @@ bool AsciiReaderGunProducer::generatePartonsAndHadronize()
     else if (fabs(particleID) == 21)                   // gluons
 	(fMasterGen->event).append( 21, 23, 101, 102, px, py, pz, ee, mass );
     else                                               // other
-	(fMasterGen->event).append( particleID, 1, 0, 0, px, py, pz, ee, mass ); 
+	(fMasterGen->event).append( particleID, 1, 0, 0, px, py, pz, ee, mass );  
 
     ++barcode ;
 
   }
 
-   if ( !fMasterGen->next() ) return false;
+   if ( !fMasterGen->next() ){
+	   cout <<"[WARING] not filling event!"<<endl;
+	   return false;
+   }
+
+   if ( fVerbosity >1 ){
+	   cout <<"-> filling  event "<<endl;
+   }
 
    event().reset(new HepMC::GenEvent);
    return toHepMC.fill_next_event( fMasterGen->event, event().get() );
@@ -121,11 +145,17 @@ bool AsciiReaderGunProducer::generatePartonsAndHadronize()
 
 void AsciiReaderGunProducer::beginJob()
 {
+	if (fVerbosity > 0 ){
+		cout <<"[AsciiReaderGunProducer]::[beginJob] Opening file: "<<fileName<<endl;
+	}
 	ascii.open(fileName.c_str() );
 }
 
 void AsciiReaderGunProducer::endJob()
 {
+	if (fVerbosity >0 ){
+		cout <<"[AsciiReaderGunProducer]::[beginJob] Closing file: "<<fileName<<endl;
+	}
 	ascii.close();
 }
 

@@ -7,6 +7,8 @@ generator = cms.EDFilter("AsciiReaderGun",
         pythia8CUEP8M1SettingsBlock,
 	#
 	#
+	Verbosity = cms.untracked.int32(1),
+	#
         PGunParameters = cms.PSet(
 			fileName = cms.string("embedding.txt"),
 			ParticleID = cms.vint32(15),  ### who use it -- Py8GunBase. NOT USED
