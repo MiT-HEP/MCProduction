@@ -12,6 +12,7 @@ usage = ''' Examples:
 	\t python batch.py -n 100 -q 1nh -f MCProduction/ThirteenTeV/python/HplusToTauNu_M_500_TuneCUETP8M1_tauola_13TeV_pythia8_cfi.py  -d mysub/step1 --put-in /store/user/amarini/mc/batch/HplusToTauNu-M500/RunII/GEN-SIM-RAW -s step1
 	\t python batch.py -n 100 -q 1nh  -d mysub/step2  -e /store/user/amarini/mc/HplusToTauNu-M500/ --put-in /store/user/amarini/mc/batch/HplusToTauNu-M500/RunII/AODSIM -s step2
 	\t python batch.py -n 100 -q 1nh  -d mysub/step3  -e /store/user/amarini/mc/HplusToTauNu-M500/ --put-in /store/user/amarini/mc/batch/HplusToTauNu-M500/RunII/MINIAODSIM -s step3
+	\t python batch.py -n 100 -q 1nh -d mysub/step4 -e /store/user/amarini/mc/HplusToTauNu-M500/ --put-in /store/user/amarini/mc/MINIAODv2 -s step4
 	'''
 
 parser = OptionParser(usage = usage)
@@ -107,6 +108,13 @@ Step3 += "--python_filename step3.py  "
 Step3 += "--customise Configuration/DataProcessing/Utils.addMonitoring "
 Step3 += "-n -1 "
 driver['step3'] = Step3
+
+Step4 = "cmsDriver.py step4 --conditions auto:run2_mc -n -1 --eventcontent MINIAODSIM --filein %%FILEIN%% "
+Step4 += " -s EI:MiniAODfromMiniAOD --datatier MINIAODSIM "
+Step4 += " --customise SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1 --mc "
+Step4 += " --fileout file:%%OUT%% --processName MINIAODfromMINIAOD "
+Step4 += " --python_filename step4.py"
+driver['step4']= Step4
 
 StepLHE  = "cmsDriver.py "
 StepLHE += "Configuration/GenProduction/python/ThirteenTeV/Hadronizer_MgmMatchTune4C_13TeV_madgraph_pythia8_Tauola_cff.py "

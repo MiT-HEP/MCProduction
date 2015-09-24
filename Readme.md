@@ -98,7 +98,7 @@ Configuration/GenProduction/python/ThirteenTeV/Hadronizer_MgmMatchTune4C_13TeV_m
 -n 100
 ```
 
-## ReMiniAOD
+## ReMiniAOD -- STEP4
 **To be tested**
 For data:
 ```
