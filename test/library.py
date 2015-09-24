@@ -53,6 +53,7 @@ def PrintSummary(dir, doPrint=True):
         red="\033[01;31m"
         green = "\033[01;32m"
         yellow = "\033[01;33m"
+        cyan = "\033[01;36m"
         white = "\033[00m"
 
         run = [ re.sub('\.run','' , re.sub('.*/sub_','', r) ) for r in run ]
@@ -63,7 +64,8 @@ def PrintSummary(dir, doPrint=True):
         tot = len(run) + len(fail) + len(done) + len(pend)
 
         color = red
-        if len(run) > len(fail) and len(run) > len(done) : color= yellow
+        if len(run) > len(fail) and len(run) > len(pend) : color= yellow
+        if len(pend) > len(fail) and len(pend) > len(run) : color= cyan
         if len(done) == tot and tot >0 : color = green
 
         if doPrint:
@@ -157,7 +159,7 @@ def OpenSh( dir, idx):
 	return (shName,sh)
 
 def BeginJobStatusFiles( sh, dir,idx):
-	call("touch "+os.environ['PWD']+"/"+dir+"/sub_"+str(idx) + ".pend\n");
+	call("touch "+os.environ['PWD']+"/"+dir+"/sub_"+str(idx) + ".pend\n",shell=True);
 	sh.write("touch "+os.environ['PWD']+"/"+dir+"/sub_"+str(idx) + ".run\n")
 	sh.write("rm "+os.environ['PWD']+"/"+dir+"/sub_"+str(idx) + ".done\n")
 	sh.write("rm "+os.environ['PWD']+"/"+dir+"/sub_"+str(idx) + ".fail\n")
@@ -181,6 +183,7 @@ def EndJobStatusFiles(sh,dir,idx):
 	return
 
 def BsubCmd(queue,dir,idx):
+	shName = dir + "/sub_%d.sh"%idx
 	bsub = "bsub -q " + queue + " -J " + dir + "_"+str(idx) + " -o " + os.environ['PWD']+ "/" + dir+"/sub_"+str(idx) + ".log "
 	bsub += os.environ['PWD'] + "/" + shName
 	return bsub

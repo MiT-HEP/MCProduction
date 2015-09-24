@@ -52,7 +52,7 @@ if opts.eos != "":
 else:
 	fileList = []
 
-if len(fileList) == 0 and opts.eos != "":
+if len(fileList) == 0 and opts.eos != "" and not opts.eos.startswith("dbs:"):
         print "ERROR no file is given"
 	raise Exception('No file tu run')
 
@@ -62,7 +62,7 @@ if opts.follow:
 
 fileChunks = chunksNum(fileList, opts.nJobs)
 
-if opts.eos == "" : 
+if opts.eos == "" or opts.eos.startswith("dbs:"): 
 	fileChunks = [];
 	for i in range(0,opts.nJobs):
 		fileChunks.append( [] ) 
@@ -108,6 +108,23 @@ Step3 += "--customise Configuration/DataProcessing/Utils.addMonitoring "
 Step3 += "-n -1 "
 driver['step3'] = Step3
 
+StepLHE  = "cmsDriver.py "
+StepLHE += "Configuration/GenProduction/python/ThirteenTeV/Hadronizer_MgmMatchTune4C_13TeV_madgraph_pythia8_Tauola_cff.py "
+#StepLHE += "--filein dbs:/TTZJets_Tune4C_13TeV-madgraph-tauola/Fall13pLHE-START62_V1-v1/GEN "
+StepLHE += "--filein %%FILEIN%% "
+StepLHE += "--mc " 
+StepLHE += "--eventcontent AODSIM " 
+StepLHE += "--datatier AODSIM " 
+StepLHE += "--pileup 2015_25ns_Startup_PoissonOOTPU " 
+StepLHE += "--pileup_input dbs:/MinBias_TuneCUETP8M1_13TeV-pythia8/RunIIWinter15GS-MCRUN2_71_V1-v1/GEN-SIM " 
+StepLHE += "--customise SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1,Configuration/DataProcessing/Utils.addMonitoring  " 
+StepLHE += "--conditions MCRUN2_74_V9 " 
+StepLHE += "--magField 38T_PostLS1 " 
+StepLHE += "--step GEN,SIM,DIGI,L1,DIGI2RAW,HLT:@frozen25ns,RAW2DIGI,L1Reco,RECO " 
+StepLHE += "--python_filename stepLHE.py --fileout file:%%OUT%% "
+StepLHE += "-n 500 "
+driver["stepLHE"]=StepLHE
+
 cmdFile = open(opts.dir+"/cmdFile.sh","a")
 
 for idx,fl in enumerate(fileChunks):
@@ -122,7 +139,8 @@ for idx,fl in enumerate(fileChunks):
 	
 	cmd = driver[opts.step]	
 	fileIn = ','.join(fl)
-	cmd = re.sub( "%%FILEIN%%",fileIn,cmd)
+	if fileIn != "" : cmd = re.sub( "%%FILEIN%%",fileIn,cmd)
+	elif opts.eos.startswith("dbs:"):cmd = re.sub( "%%FILEIN%%",opts.eos,cmd)
 	outName = opts.step + "_" + str(idx) + ".root"
 	cmd = re.sub("%%OUT%%",outName,cmd)
 	

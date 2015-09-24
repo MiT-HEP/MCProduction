@@ -78,6 +78,45 @@ MCProduction/ThirteenTeV/python/HplusToTauNu_M_900_TuneCUETP8M1_tauola_13TeV_pyt
 -n 100
 ```
 
+## STEP1+2 from LHE
+```
+cmsDriver.py \
+Configuration/GenProduction/python/ThirteenTeV/Hadronizer_MgmMatchTune4C_13TeV_madgraph_pythia8_Tauola_cff.py \
+--filein dbs:/TTZJets_Tune4C_13TeV-madgraph-tauola/Fall13pLHE-START62_V1-v1/GEN \
+--mc \
+--eventcontent AODSIM \
+--datatier AODSIM \
+--pileup 2015_25ns_Startup_PoissonOOTPU \
+--pileup_input dbs:/MinBias_TuneCUETP8M1_13TeV-pythia8/RunIIWinter15GS-MCRUN2_71_V1-v1/GEN-SIM \
+--customise SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1,Configuration/DataProcessing/Utils.addMonitoring  \
+--conditions MCRUN2_74_V9 \
+--magField 38T_PostLS1 \
+--step GEN,SIM,DIGI,L1,DIGI2RAW,HLT:@frozen25ns,RAW2DIGI,L1Reco,RECO \
+--python_filename step12_bis.py  \
+--no_exec \
+--fileout file:step2.root \
+-n 100
+```
+
+## ReMiniAOD
+**To be tested**
+For data:
+```
+cmsDriver.py step4 --conditions auto:run2_data -n 100 --eventcontent
+MINIAOD --filein file:step3.root -s EI:MiniAODfromMiniAOD --datatier
+MINIAOD --customise
+SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1
+--data --no_exec --fileout file:step4.root --processName MINIAODfromMINIAOD
+```
+For MC:
+```
+cmsDriver.py step4 --conditions auto:run2_mc -n 100 --eventcontent
+MINIAODSIM --filein file:step3.root -s EI:MiniAODfromMiniAOD --datatier
+MINIAODSIM --customise
+SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1
+--mc --no_exec --fileout file:step4.root --processName MINIAODfromMINIAOD
+```
+
 #Grid Submission
 ## STEP 1
 * Go in test, edit crabStep1.py
