@@ -98,11 +98,12 @@ Step2 += "--python_filename step2.py  "
 Step2 += "-n -1 "
 driver['step2'] = Step2
 
+#or: auto:run2_mc_50ns, auto:run2_mc ?
 Step3  = "cmsDriver.py step3 --filein %%FILEIN%%  "
 Step3 += "--fileout file:%%OUT%% --mc "
 Step3 += "--eventcontent MINIAODSIM  "
 Step3 += "--runUnscheduled --datatier MINIAODSIM  "
-Step3 += "--conditions MCRUN2_74_V9  "
+Step3 += "--conditions 74X_mcRun2_asymptotic_v2  "
 Step3 += "--step PAT "
 Step3 += "--python_filename step3.py  "
 Step3 += "--customise Configuration/DataProcessing/Utils.addMonitoring "

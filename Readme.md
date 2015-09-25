@@ -45,13 +45,13 @@ cmsDriver.py step2 --filein file:step1.root --fileout file:step2.root  \
 ```
 
 ## STEP 3 
-Step 3 produces MINIAOD out of them (CMSSW_7_4_5)
+Step 3 produces MINIAOD (GT MCRUN2_74_V9) out of them (CMSSW_7_4_5), for miniAODv2 change GT (7_4_12)
 ```
 cmsDriver.py step3 --filein file:step2.root  \
 --fileout file:step3.root --mc \
 --eventcontent MINIAODSIM  \
 --runUnscheduled --datatier MINIAODSIM  \
---conditions MCRUN2_74_V9  \
+--conditions 74X_mcRun2_asymptotic_v2  \
 --step PAT \
 --python_filename step3.py  \
 --customise Configuration/DataProcessing/Utils.addMonitoring \
@@ -99,8 +99,10 @@ Configuration/GenProduction/python/ThirteenTeV/Hadronizer_MgmMatchTune4C_13TeV_m
 ```
 
 ## ReMiniAOD -- STEP4
-**To be tested**
-For data:
+
+This step may perform some operation like adding the EGamma variables, but will **not** convert from MINIAODv1 to MINIAODv2
+
+* For data:
 ```
 cmsDriver.py step4 --conditions auto:run2_data -n 100 --eventcontent
 MINIAOD --filein file:step3.root -s EI:MiniAODfromMiniAOD --datatier
@@ -108,7 +110,8 @@ MINIAOD --customise
 SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1
 --data --no_exec --fileout file:step4.root --processName MINIAODfromMINIAOD
 ```
-For MC:
+
+* For MC:
 ```
 cmsDriver.py step4 --conditions auto:run2_mc -n 100 --eventcontent
 MINIAODSIM --filein file:step3.root -s EI:MiniAODfromMiniAOD --datatier
