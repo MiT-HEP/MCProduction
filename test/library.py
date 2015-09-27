@@ -134,7 +134,7 @@ def ReadFromDataBase(dbName,fileList):
 		f = l.split()[1]
 		if n not in db: db[n] = []
 		db[n].append(f)
-		if n<maxn: maxn = n;
+		if n>maxn: maxn = n;
 		fileSubmitted.append(f)
 	fileList_tmp = [ f for f in fileList if f not in fileSubmitted ]
 	fileList = fileList_tmp[:]
