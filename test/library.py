@@ -158,6 +158,21 @@ def OpenSh( dir, idx):
 	sh.write("eval `scramv1 runtime -sh`\n") #cmsenv
 	return (shName,sh)
 
+def TrapExit( sh ,dir ,idx,outName="",outdir=""):
+	## remove and update stutus files
+	cmd  = "rm "+os.environ['PWD']+"/"+dir+"/sub_"+str(idx) + ".run ; "
+	cmd += "rm "+os.environ['PWD']+"/"+dir+"/sub_"+str(idx) + ".done ; "
+	cmd += "rm "+os.environ['PWD']+"/"+dir+"/sub_"+str(idx) + ".pend ; "
+	cmd += "echo SIGTERM SIGINT > "+os.environ['PWD']+"/"+dir+"/sub_"+str(idx) + ".fail ; "
+	## copy output
+	if outName != "":
+		cmd +=  "cmsMkdir "+ outdir + " ;"
+		cmd +=  "cmsMkdir "+ outdir + "/failed/" +" ;"
+		cmd +=  "cmsStage -f " + outName + " " + outdir+ "/failed/" + outName + " ; "
+	cmd += "echo FINISHED TRANSFER >> "+os.environ['PWD']+"/"+dir+"/sub_"+str(idx) + ".fail ; "
+	cmd += " exit 255; " ;
+	sh.write('trap "{ %s } " SIGTERM SIGINT \n' % cmd)
+
 def BeginJobStatusFiles( sh, dir,idx):
 	call("touch "+os.environ['PWD']+"/"+dir+"/sub_"+str(idx) + ".pend\n",shell=True);
 	sh.write("touch "+os.environ['PWD']+"/"+dir+"/sub_"+str(idx) + ".run\n")

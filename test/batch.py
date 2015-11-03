@@ -2,6 +2,7 @@
 
 import os, sys
 import re
+import random
 from subprocess import call,check_output
 
 from optparse import OptionParser
@@ -78,21 +79,22 @@ Step1 += "--mc "
 Step1 += "--eventcontent RAWSIM "
 Step1 += "--datatier GEN-SIM-RAW "
 Step1 += "--pileup 2015_25ns_Startup_PoissonOOTPU "
-Step1 += "--pileup_input dbs:/MinBias_TuneCUETP8M1_13TeV-pythia8/RunIIWinter15GS-MCRUN2_71_V1-v1/GEN-SIM "
+#Step1 += "--pileup_input dbs:/MinBias_TuneCUETP8M1_13TeV-pythia8/RunIIWinter15GS-MCRUN2_71_V1-v1/GEN-SIM "
+Step1 += "--pileup_input %%PILEUP%% " ## read from a pileup.txt file /store/...
 Step1 += "--customise SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1,Configuration/DataProcessing/Utils.addMonitoring "
-Step1 += "--conditions MCRUN2_74_V9 "
+Step1 += "--conditions auto:run2_mc "
 Step1 += "--magField 38T_PostLS1 "
 Step1 += "--step GEN,SIM,DIGI,L1,DIGI2RAW,HLT:@frozen25ns "
 Step1 += "--python_filename step1.py  "
 Step1 += "--fileout file:%%OUT%% "
-Step1 += "-n 100 "
+Step1 += "-n 200 "
 driver["step1"]=Step1
 
 Step2= "cmsDriver.py step2 --filein %%FILEIN%% --fileout file:%%OUT%%  "
 Step2 += "--mc --eventcontent AODSIM  "
 Step2 += "--customise SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1,Configuration/DataProcessing/Utils.addMonitoring "
 Step2 += "--datatier AODSIM --step RAW2DIGI,L1Reco,RECO "
-Step2 += "--conditions MCRUN2_74_V9 "
+Step2 += "--conditions auto:run2_mc "
 Step2 += "--magField 38T_PostLS1  "
 Step2 += "--python_filename step2.py  "
 Step2 += "-n -1 "
@@ -142,16 +144,22 @@ for idx,fl in enumerate(fileChunks):
 		for f in fl:
 			WriteIntoDatabase( opts.dir + "/database.txt" ,idx,f)
 	## open a script file
+	outName = opts.step + "_" + str(idx) + ".root"
+
 	shName,sh = OpenSh(opts.dir,idx)
 	BeginJobStatusFiles(sh,opts.dir,idx)
 	CdWorkDir(sh)
+	TrapExit(sh,opts.dir,idx,outName,opts.putin)
 	
 	cmd = driver[opts.step]	
 	fileIn = ','.join(fl)
 	if fileIn != "" : cmd = re.sub( "%%FILEIN%%",fileIn,cmd)
 	elif opts.eos.startswith("dbs:"):cmd = re.sub( "%%FILEIN%%",opts.eos,cmd)
-	outName = opts.step + "_" + str(idx) + ".root"
 	cmd = re.sub("%%OUT%%",outName,cmd)
+	if "%%PILEUP%%" in cmd:
+		pileup=check_output( " shuf -n 50 pileup.txt | tr '\n' ','  | sed 's/,$//' ",shell=True) ## 
+		#line = random.choice(open('pileup.txt').readlines())
+		cmd = re.sub("%%PILEUP%%",pileup,cmd)
 	
 	sh.write(cmd + "\n")
 	

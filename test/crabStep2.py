@@ -11,7 +11,8 @@ config.JobType.pluginName = 'Analysis'
 config.JobType.psetName = 'step2.py'
 
 ### DATA configuration
-config.Data.inputDataset = '/HplusToTauNu-M500/amarini-amarini_PrivateMC_HPlusToTauNu_June2015-16aa19d591b8b49c55c4508e7a7c9233/USER'
+#config.Data.inputDataset = '/HplusToTauNu-M500/amarini-amarini_PrivateMC_HPlusToTauNu_June2015-16aa19d591b8b49c55c4508e7a7c9233/USER'
+config.Data.inputDataset = '/SingleTau_FlatPt_pythia8/amarini-SingleTau_FlatPt_pythia8_RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9_GENSIMRAW-5acfbcd257d5e726b08870647d1dc244/USER'
 #config.Data.inputDataset = '/HplusToTauNu/amarini-amarini_PrivateMC_HPlusToTauNu_June2015-9e71add12689a20c13001f387193a79f/USER'
 config.Data.inputDBS = 'phys03'
 config.Data.ignoreLocality = True

@@ -10,7 +10,8 @@ generator = cms.EDFilter("Pythia8PtGun",
 	#
 
         PGunParameters = cms.PSet(
-            PartID = cms.vint32(15),
+            ParticleID = cms.vint32([15,-15]),
+	    AddAntiParticle = cms.bool(True),
             MinPhi = cms.double(-3.14159265359),
             MaxPhi = cms.double(3.14159265359), ## in radians
             MinEta = cms.double(-2.1),
@@ -20,7 +21,6 @@ generator = cms.EDFilter("Pythia8PtGun",
         ),
 
         Verbosity = cms.untracked.int32(0), ## set to 1 (or greater)  for printouts
-        AddAntiParticle = cms.bool(True),
 
         pythiaTauJets = cms.vstring(
                         'ParticleDecays:sophisticatedTau = 2',
