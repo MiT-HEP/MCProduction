@@ -98,6 +98,25 @@ Configuration/GenProduction/python/ThirteenTeV/Hadronizer_MgmMatchTune4C_13TeV_m
 -n 100
 ```
 
+# CMSSW_7_6_X
+
+## Step1 for 76X --- MINBIAS
+```
+cmsDriver.py \
+MCProduction/ThirteenTeV/python/MinBias_13TeV_pythia8_cfi.py
+--mc \
+--eventcontent RAWSIM \
+--datatier GEN-SIM-RAW \
+--pileup NoPileUp \
+--era Run2_25ns \
+--conditions auto:run2_mc \
+--magField 38T_PostLS1 \
+--step GEN,SIM,DIGI,L1,DIGI2RAW,HLT:@frozen25ns \
+--python_filename step1.py  \
+--no_exec \
+--fileout file:step1.root \
+-n 100
+```
 ## Step 12 for 76X --- MINBIAS
 ```
 cmsDriver.py MCProduction/ThirteenTeV/python/MinBias_13TeV_pythia8_cfi.py --mc --eventcontent AODSIM --datatier AODSIM  --pileup NoPileUp  --era Run2_25ns --conditions auto:run2_mc --magField 38T_PostLS1 --step GEN,SIM,DIGI,L1,DIGI2RAW,HLT:@frozen25ns,RAW2DIGI,L1Reco,RECO --python_filename step12.py --no_exec  --fileout step12.root -n 100
