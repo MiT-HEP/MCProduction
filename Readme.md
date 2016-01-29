@@ -98,6 +98,11 @@ Configuration/GenProduction/python/ThirteenTeV/Hadronizer_MgmMatchTune4C_13TeV_m
 -n 100
 ```
 
+## Step 12 for 76X --- MINBIAS
+```
+cmsDriver.py MCProduction/ThirteenTeV/python/MinBias_13TeV_pythia8_cfi.py --mc --eventcontent AODSIM --datatier AODSIM  --pileup NoPileUp  --era Run2_25ns --conditions auto:run2_mc --magField 38T_PostLS1 --step GEN,SIM,DIGI,L1,DIGI2RAW,HLT:@frozen25ns,RAW2DIGI,L1Reco,RECO --python_filename step12.py --no_exec  --fileout step12.root -n 100
+```
+
 ## ReMiniAOD -- STEP4
 
 This step may perform some operation like adding the EGamma variables, but will **not** convert from MINIAODv1 to MINIAODv2
