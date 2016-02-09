@@ -120,6 +120,31 @@ SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1
 --mc --no_exec --fileout file:step4.root --processName MINIAODfromMINIAOD
 ```
 
+## Step 12 for 76X
+```
+cmsDriver.py ABC --mc --eventcontent AODSIM --datatier AODSIM  --pileup 2015_25ns_Startup_PoissonOOTPU --pileup_input dbs:/MinBias_TuneCUETP8M1_13TeV-pythia8/RunIIWinter15GS-MCRUN2_71_V1-v1/GEN-SIM --era Run2_25ns --conditions auto:run2_mc --magField 38T_PostLS1 --step GEN,SIM,DIGI,L1,DIGI2RAW,HLT:@frozen25ns,RAW2DIGI,L1Reco,RECO --python_filename step12.py --no_exec  --fileout step12.root -n -1
+```
+
+## Step 12 for 76X --- MINBIAS
+```
+cmsDriver.py MCProduction/ThirteenTeV/python/MinBias_13TeV_pythia8_cfi.py --mc --eventcontent AODSIM --datatier AODSIM  --pileup NoPileUp  --era Run2_25ns --conditions auto:run2_mc --magField 38T_PostLS1 --step GEN,SIM,DIGI,L1,DIGI2RAW,HLT:@frozen25ns,RAW2DIGI,L1Reco,RECO --python_filename step12.py --no_exec  --fileout step12.root -n 100
+```
+
+## STEP 3  for 76X
+Step 3 produces MINIAOD 
+```
+cmsDriver.py step3 --filein file:step2.root  \
+--fileout file:step3.root --mc \
+--eventcontent MINIAODSIM  \
+--runUnscheduled --datatier MINIAODSIM  \
+--conditions auto:run2_mc  \
+--step PAT \
+--python_filename step3.py  \
+--era Run2_25ns \
+--no_exec \
+-n -1
+```
+
 #Grid Submission
 ## STEP 1
 * Go in test, edit crabStep1.py
