@@ -4,8 +4,11 @@ import FWCore.ParameterSet.Config as cms
 process = cms.Process("GEN")
 
 process.source = cms.Source("MCFileSource",
-		        fileNames = cms.untracked.vstring('file:hepmc100.dat'),
+		        #fileNames = cms.untracked.vstring('file:hepmc100.dat'),
+			fileNames = cms.untracked.vstring('file:/tmp/amarini/hepmc10K.dat'),
 			)
+#cmd = "mkfifo /tmp/amarini/hepmc10K.dat"
+#cmd = "cat hepmc10K.dat.gz | gunzip -c > /tmp/amarini/hepmc10K.dat"
 
 process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(-1))
 
@@ -18,6 +21,13 @@ process.GEN = cms.OutputModule("PoolOutputModule",
 			)
 
 
+process.load('Configuration.StandardSequences.Services_cff')
+process.load('SimGeneral.HepPDTESSource.pythiapdt_cfi')
+process.load('GeneratorInterface.Core.genFilterSummary_cff')
+process.load('Configuration.StandardSequences.Generator_cff')
+process.genParticles.src= cms.InputTag("source","generator")
+
+process.p = cms.Path(process.genParticles)
 process.outpath = cms.EndPath(process.GEN)
 
 ### TO DO: add the following
