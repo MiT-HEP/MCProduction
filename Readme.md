@@ -2,14 +2,14 @@
 These steps will produce the step.py files used by the generation process
 ## Create Symlinks
 ```
-cmsrel CMSSW_7_4_5
+cmsrel CMSSW_7_1_25_patch
 cd !$
 cmsenv
 cd MCProduction/ThirteenTeV
 scram b -j 16
 ```
 
-##STEP 1
+##STEP 1 --- LHE 
 Step 1 produces the GEN-SIM-RAW datatier. It is heavy production and therefore factorized.
 
 ```
@@ -29,6 +29,30 @@ MCProduction/ThirteenTeV/python/HplusToTauNu_M_200_TuneCUETP8M1_tauola_13TeV_pyt
 --fileout file:step1.root \
 -n 100
 ```
+
+## Run&Lumis
+In the generation set 
+~~~python
+from FWCore.ParameterSet.VarParsing import VarParsing
+options = VarParsing ('analysis')
+options.register('jobNum', 0, VarParsing.multiplicity.singleton,VarParsing.varType.int,"jobNum")
+options.parseArguments()
+...
+firstLumi=10*optsions.jobNum+1 ## eventsPerJob/eventsPerLumi*jobNum +1
+process.source = cms.Source("EmptySource",
+		firstLuminosityBlock  = cms.untracked.uint32(firstLumi),
+		numberEventsInLuminosityBlock = cms.untracked.uint32(100)
+		)
+~~~
+
+##Random Seed
+
+set random seed using urandom  for GEN/generator step (PYTHIA)
+~~~python
+import os,random
+random.seed = os.urandom(10) #~10^14
+process.RandomNumberGeneratorService.generator.initialSeed = random.randint(0,999999)
+~~~
 
 ## STEP 2 
 Step 2 runs the Reconstruction algorithm and produces the AOD file content.
