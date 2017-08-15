@@ -33,6 +33,8 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
             'JetMatching:nJetMax = 2', #number of partons in born matrix element for highest multiplicity
             'SLHA:useDecayTable = off',
             '25:m0 = 125.0',
+            #'25:m0 = 120.0',
+            #'25:m0 = 130.0',
             '25:onMode = off', 
             '25:onIfMatch = 13 -13', 
         ),
