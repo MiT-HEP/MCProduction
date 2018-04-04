@@ -10,7 +10,7 @@ config.JobType.pluginName = 'PrivateMC'
 #config.JobType.disableAutomaticOutputCollection = True
 config.JobType.maxMemoryMB = 2500
 config.JobType.psetName = 'MINIAODSIM.py' ## fake the last step
-config.JobType.inputFiles = ['scriptExe.sh', 'GEN.py','MINIAODSIM.py','pu.py','step1.py','step3.py']
+config.JobType.inputFiles = ['scriptExe.sh','MINIAODSIM.py','pu.py','step1.py','step2.py','step3.py']
 config.JobType.scriptExe='scriptExe.sh'
 config.JobType.numCores=4
 

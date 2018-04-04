@@ -16,7 +16,7 @@ config.JobType.numCores=4
 
 config.Data.splitting = 'EventBased'
 config.Data.unitsPerJob = 500
-config.Data.totalUnits = 5000000
+config.Data.totalUnits = 1000000
 config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshtt/%s/' % (getUsernameFromSiteDB())
 config.Data.publication = True
 #config.Data.outputPrimaryDataset = 'GluGlu_HToMuMu_M125_13TeV_amcatnloFXFX_pythia8'

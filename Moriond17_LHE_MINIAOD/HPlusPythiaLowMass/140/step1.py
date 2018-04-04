@@ -98,9 +98,20 @@ process.generator = cms.EDFilter("Pythia8GeneratorFilter",
             '36:m0 = 140.', 
             '37:m0 = 140.', 
             'HiggsHchg:tanBeta = 30', 
-            'HiggsBSM:bg2H+-t  = on', 
-            '37:onMode = 0', 
-            '37:onIfAny = 15', 
+            # Top:all   (default = off), includes other channel, this is consistent with runI
+            'Top:gg2ttbar    = on',
+            'Top:qqbar2ttbar = on',
+            '6:m0 = 172.5', # top mass',
+            ## disable t decays
+            '6:onMode = 0',
+            ## enable top -> W
+            '6:onPosIfAny = 24',
+            ## enable anti-top -> H+
+            '6:onNegIfAny = 37',
+            ## disable all charged higgs decay
+            '37:onMode = 0',
+            ## enable H+->tau
+            '37:onIfAny = 15',
             'Tune:pp 5', 
             'Tune:ee 3', 
             'ParticleDecays:limitTau0 = on', 
