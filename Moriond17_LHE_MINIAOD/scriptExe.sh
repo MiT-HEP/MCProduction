@@ -26,7 +26,7 @@ echo "================= CMSRUN starting Step 1 ====================" | tee -a jo
  cmsRun -j GenSimAODSim_step1.log step1.py jobNum=$1
 
 echo "================= CMSRUN starting Step 2 ====================" | tee -a job.log
- cmsDriver.py Configuration/GenProduction/python/GEN.py --filein file:step1.root --fileout file:step2.root --mc --eventcontent RAWSIM --customise SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1,Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM --conditions MCRUN2_71_V1::All --beamspot Realistic50ns13TeVCollision --step GEN,SIM --magField 38T_PostLS1 --python_filename step2.py --no_exec -n ${NUM} || exit $? ; 
+# cmsDriver.py Configuration/GenProduction/python/GEN.py --filein file:step1.root --fileout file:step2.root --mc --eventcontent RAWSIM --customise SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1,Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM --conditions MCRUN2_71_V1::All --beamspot Realistic50ns13TeVCollision --step GEN,SIM --magField 38T_PostLS1 --python_filename step2.py --no_exec -n ${NUM} || exit $? ; 
 
  cmsRun -j GenSimAODSim_step2.log step2.py
  echo "-> cleaning"

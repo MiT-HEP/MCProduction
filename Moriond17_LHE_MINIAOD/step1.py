@@ -23,10 +23,6 @@ process.load('Configuration.StandardSequences.MagneticField_38T_cff')
 process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
-process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(500)
-)
-
 # Input source
 firstLumi=10*options.jobNum+1 ## eventsPerJob/eventsPerLumi*jobNum +1
 process.source = cms.Source("EmptySource",
@@ -71,6 +67,10 @@ process.externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
     numberOfParameters = cms.uint32(1),
     args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/slc6_amd64_gcc481/13TeV/madgraph/V5_2.2.2/ggh012j_5f_NLO_FXFX_125/v1/ggh012j_5f_NLO_FXFX_125_tarball.tar.xz')
 )
+
+import os,random
+random.seed = os.urandom(10) #~10^14
+process.RandomNumberGeneratorService.externalLHEProducer.initialSeed = random.randint(0,999999)
 
 
 # Path and EndPath definitions
