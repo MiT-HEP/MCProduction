@@ -1,0 +1,9 @@
+log = sub$(Process).log
+output = sub$(Process).out
+error = sub$(Process).err
+executable = scriptExe.sh
+transfer_input_files =  MinBias_14TeV_pythia8_TuneCUETP8M1_cfi_GEN_SIM.py,step2_DIGI_L1_L1TrackTrigger_DIGI2RAW_HLT.py
+args = $(Process)
++JobFlavour = "tomorrow"
+##Remember to add the transfer to the scriptExe file!
+queue 200 
