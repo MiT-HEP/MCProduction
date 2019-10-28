@@ -93,6 +93,15 @@ process.mixData.input.fileNames = cms.untracked.vstring(puList)
 from Configuration.AlCa.GlobalTag import GlobalTag
 process.GlobalTag = GlobalTag(process.GlobalTag, '80X_mcRun2_asymptotic_2016_TrancheIV_v6', '')
 
+
+process.externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
+    args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/2017/13TeV/powheg/V2/gg_H_quark-mass-effects_NNPDF31_13TeV_M125/v1/gg_H_quark-mass-effects_NNPDF31_13TeV_M125_slc6_amd64_gcc630_CMSSW_9_3_0.tgz'),
+    nEvents = cms.untracked.uint32(500),
+    numberOfParameters = cms.uint32(1),
+    outputFile = cms.string('cmsgrid_final.lhe'),
+    scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh')
+)
+
 process.generator = cms.EDFilter("Pythia8HadronizerFilter",
     PythiaParameters = cms.PSet(
         parameterSets = cms.vstring('pythia8CommonSettings', 
@@ -147,14 +156,6 @@ process.generator = cms.EDFilter("Pythia8HadronizerFilter",
 )
 
 
-process.externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
-    args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/2017/13TeV/powheg/V2/gg_H_quark-mass-effects_NNPDF31_13TeV_M125/v1/gg_H_quark-mass-effects_NNPDF31_13TeV_M125_slc6_amd64_gcc630_CMSSW_9_3_0.tgz'),
-    nEvents = cms.untracked.uint32(500),
-    numberOfParameters = cms.uint32(1),
-    outputFile = cms.string('cmsgrid_final.lhe'),
-    scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh')
-)
-
 
 # Path and EndPath definitions
 process.lhe_step = cms.Path(process.externalLHEProducer)
@@ -177,7 +178,7 @@ process.schedule.extend(process.HLTSchedule)
 process.schedule.extend([process.endjob_step,process.AODSIMoutput_step])
 # filter all path with the production filter sequence
 for path in process.paths:
-	#if path in ['lhe_step']: continue
+	if path in ['lhe_step']: continue
 	getattr(process,path)._seq = process.generator * getattr(process,path)._seq 
 
 # customisation of the process.
