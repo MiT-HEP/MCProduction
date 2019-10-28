@@ -82,7 +82,6 @@ process.AODSIMoutput = cms.OutputModule("PoolOutputModule",
 # Other statements
 process.genstepfilter.triggerConditions=cms.vstring("generation_step")
 process.mix.digitizers = cms.PSet(process.theDigitizersMixPreMix)
-process.mixData.input.fileNames = cms.untracked.vstring([])
 
 import random
 from pu import puListFull
