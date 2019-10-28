@@ -6,6 +6,21 @@ export SCRAM_ARCH=slc6_amd64_gcc530
 
 BASE=$PWD
 
+echo "================= CMSRUN setting up CMSSW_7_1_26 ===================="| tee -a job.log
+export SCRAM_ARCH=slc6_amd64_gcc481
+source /cvmfs/cms.cern.ch/cmsset_default.sh
+if [ -r CMSSW_7_1_26/src ] ; then 
+     echo release CMSSW_7_1_26 already exists
+ else
+     scram p CMSSW CMSSW_7_1_26
+ fi
+ cd CMSSW_7_1_26/src
+ eval `scram runtime -sh`
+
+cd $BASE
+echo "================= CMSRUN starting Step 1 ====================" | tee -a job.log
+cmsRun -j GenSimAODSim_step1.log step1.py jobNum=$1
+
 
 echo "================= CMSRUN setting up CMSSW_8_0_31 ===================="| tee -a job.log
 
@@ -18,8 +33,8 @@ cd CMSSW_8_0_31/src
 eval `scram runtime -sh`
 
 cd $BASE
-echo "================= CMSRUN starting Step 1 ====================" | tee -a job.log
-cmsRun -j GenSimAODSim_step1.log step1.py jobNum=$1
+echo "================= CMSRUN starting Step 2 ====================" | tee -a job.log
+cmsRun -j GenSimAODSim_step2.log step2.py jobNum=$1
 
 
 echo "================= CMSRUN setting up CMSSW_9_4_9 ===================="| tee -a job.log
@@ -37,8 +52,8 @@ scram b
 cd ../../
 cd $BASE
 
-echo "================= CMSRUN starting Step 2 ====================" | tee -a job.log
+echo "================= CMSRUN starting Step 3 ====================" | tee -a job.log
 #cmsRun -j MiniAODSim_Step2.log Step2.py 
-cmsRun -e -j FrameworkJobReport.xml step2.py 
+cmsRun -e -j FrameworkJobReport.xml step3.py 
 
 echo "================= CMSRUN finished ====================" | tee -a job.log

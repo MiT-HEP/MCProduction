@@ -2,12 +2,17 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: step1 --fileout file:step2.root --mc --eventcontent MINIAODSIM --runUnscheduled --fast --datatier MINIAODSIM --conditions 94X_mcRun2_asymptotic_v3 --step PAT --nThreads 8 --era Run2_2016,run2_miniAOD_80XLegacy --python_filename SUS-RunIISummer16MiniAODv3-00355_1_cfg.py --no_exec --customise Configuration/DataProcessing/Utils.addMonitoring -n 5760
+# with command line options: Configuration/GenProduction/python/SUS-RunIISummer16FSPremix-00106-fragment.py --fileout file:step2.root --pileup_input dbs:/Neutrino_E-10_gun/RunIISummer16FSPremix-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v4-v1/GEN-SIM-DIGI-RAW --mc --eventcontent AODSIM --fast --customise SimGeneral/DataMixingModule/customiseForPremixingInput.customiseForPreMixingInput,Configuration/DataProcessing/Utils.addMonitoring --datatier AODSIM --conditions 80X_mcRun2_asymptotic_2016_TrancheIV_v6 --beamspot Realistic50ns13TeVCollision --customise_commands process.source.numberEventsInLuminosityBlock = cms.untracked.uint32(200) --step GEN,SIM,RECOBEFMIX,DIGIPREMIX_S2,DATAMIX,L1,DIGI2RAW,L1Reco,RECO,HLT:@fake1 --datamix PreMix --era Run2_2016 --python_filename SUS-RunIISummer16FSPremix-00106_1_cfg.py --no_exec -n 500
 import FWCore.ParameterSet.Config as cms
+
+from FWCore.ParameterSet.VarParsing import VarParsing
+options = VarParsing ('analysis')
+options.register('jobNum', 0, VarParsing.multiplicity.singleton,VarParsing.varType.int,"jobNum")
+options.parseArguments()
 
 from Configuration.StandardSequences.Eras import eras
 
-process = cms.Process('PAT',eras.Run2_2016,eras.run2_miniAOD_80XLegacy,eras.fastSim)
+process = cms.Process('HLT',eras.Run2_2016,eras.fastSim)
 
 # import of standard configurations
 process.load('Configuration.StandardSequences.Services_cff')
@@ -17,13 +22,24 @@ process.load('Configuration.EventContent.EventContent_cff')
 process.load('SimGeneral.MixingModule.mixNoPU_cfi')
 process.load('FastSimulation.Configuration.Geometries_MC_cff')
 process.load('Configuration.StandardSequences.MagneticField_cff')
-process.load('PhysicsTools.PatAlgos.slimming.metFilterPaths_cff')
-process.load('Configuration.StandardSequences.PATMC_cff')
+process.load('Configuration.StandardSequences.Generator_cff')
+process.load('IOMC.EventVertexGenerators.VtxSmearedRealistic50ns13TeVCollision_cfi')
+process.load('GeneratorInterface.Core.genFilterSummary_cff')
+process.load('FastSimulation.Configuration.SimIdeal_cff')
+process.load('FastSimulation.Configuration.Reconstruction_BefMix_cff')
+process.load('Configuration.StandardSequences.DigiDMPreMix_cff')
+process.load('SimGeneral.MixingModule.digi_MixPreMix_cfi')
+process.load('Configuration.StandardSequences.DataMixerPreMix_cff')
+process.load('Configuration.StandardSequences.SimL1EmulatorDM_cff')
+process.load('Configuration.StandardSequences.DigiToRawDM_cff')
+process.load('FastSimulation.Configuration.L1Reco_cff')
+process.load('FastSimulation.Configuration.Reconstruction_AftMix_cff')
+process.load('HLTrigger.Configuration.HLT_Fake1_cff')
 process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(5760)
+    input = cms.untracked.int32(500)
 )
 
 # Input source
@@ -38,125 +54,69 @@ process.options = cms.untracked.PSet(
 
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('step1 nevts:5760'),
+    annotation = cms.untracked.string('Configuration/GenProduction/python/SUS-RunIISummer16FSPremix-00106-fragment.py nevts:500'),
     name = cms.untracked.string('Applications'),
     version = cms.untracked.string('$Revision: 1.19 $')
 )
 
 # Output definition
 
-process.MINIAODSIMoutput = cms.OutputModule("PoolOutputModule",
+process.AODSIMoutput = cms.OutputModule("PoolOutputModule",
     compressionAlgorithm = cms.untracked.string('LZMA'),
     compressionLevel = cms.untracked.int32(4),
     dataset = cms.untracked.PSet(
-        dataTier = cms.untracked.string('MINIAODSIM'),
+        dataTier = cms.untracked.string('AODSIM'),
         filterName = cms.untracked.string('')
     ),
-    dropMetaData = cms.untracked.string('ALL'),
-    eventAutoFlushCompressedSize = cms.untracked.int32(-900),
-    fastCloning = cms.untracked.bool(False),
+    eventAutoFlushCompressedSize = cms.untracked.int32(15728640),
     fileName = cms.untracked.string('file:step2.root'),
-    outputCommands = process.MINIAODSIMEventContent.outputCommands,
-    overrideBranchesSplitLevel = cms.untracked.VPSet(cms.untracked.PSet(
-        branch = cms.untracked.string('patPackedCandidates_packedPFCandidates__*'),
-        splitLevel = cms.untracked.int32(99)
-    ), 
-        cms.untracked.PSet(
-            branch = cms.untracked.string('recoGenParticles_prunedGenParticles__*'),
-            splitLevel = cms.untracked.int32(99)
-        ), 
-        cms.untracked.PSet(
-            branch = cms.untracked.string('patTriggerObjectStandAlones_slimmedPatTrigger__*'),
-            splitLevel = cms.untracked.int32(99)
-        ), 
-        cms.untracked.PSet(
-            branch = cms.untracked.string('patPackedGenParticles_packedGenParticles__*'),
-            splitLevel = cms.untracked.int32(99)
-        ), 
-        cms.untracked.PSet(
-            branch = cms.untracked.string('patJets_slimmedJets__*'),
-            splitLevel = cms.untracked.int32(99)
-        ), 
-        cms.untracked.PSet(
-            branch = cms.untracked.string('recoVertexs_offlineSlimmedPrimaryVertices__*'),
-            splitLevel = cms.untracked.int32(99)
-        ), 
-        cms.untracked.PSet(
-            branch = cms.untracked.string('recoCaloClusters_reducedEgamma_reducedESClusters_*'),
-            splitLevel = cms.untracked.int32(99)
-        ), 
-        cms.untracked.PSet(
-            branch = cms.untracked.string('EcalRecHitsSorted_reducedEgamma_reducedEBRecHits_*'),
-            splitLevel = cms.untracked.int32(99)
-        ), 
-        cms.untracked.PSet(
-            branch = cms.untracked.string('EcalRecHitsSorted_reducedEgamma_reducedEERecHits_*'),
-            splitLevel = cms.untracked.int32(99)
-        ), 
-        cms.untracked.PSet(
-            branch = cms.untracked.string('recoGenJets_slimmedGenJets__*'),
-            splitLevel = cms.untracked.int32(99)
-        ), 
-        cms.untracked.PSet(
-            branch = cms.untracked.string('patJets_slimmedJetsPuppi__*'),
-            splitLevel = cms.untracked.int32(99)
-        ), 
-        cms.untracked.PSet(
-            branch = cms.untracked.string('EcalRecHitsSorted_reducedEgamma_reducedESRecHits_*'),
-            splitLevel = cms.untracked.int32(99)
-        )),
-    overrideInputFileSplitLevels = cms.untracked.bool(True),
-    splitLevel = cms.untracked.int32(0)
+    outputCommands = process.AODSIMEventContent.outputCommands
 )
 
 # Additional output definition
 
 # Other statements
+process.mix.digitizers = cms.PSet(process.theDigitizersMixPreMix)
+
+import random
+from pu import puListFull
+random.shuffle(puListFull)
+puList= puListFull[0:20]
+process.mixData.input.fileNames = cms.untracked.vstring(puList)
+
 from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, '94X_mcRun2_asymptotic_v3', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, '80X_mcRun2_asymptotic_2016_TrancheIV_v6', '')
+
 
 # Path and EndPath definitions
-process.Flag_trackingFailureFilter = cms.Path(process.goodVertices+process.trackingFailureFilter)
-process.Flag_goodVertices = cms.Path(process.primaryVertexFilter)
-process.Flag_CSCTightHaloFilter = cms.Path(process.CSCTightHaloFilter)
-process.Flag_trkPOGFilters = cms.Path(process.trkPOGFilters)
-process.Flag_HcalStripHaloFilter = cms.Path(process.HcalStripHaloFilter)
-process.Flag_trkPOG_logErrorTooManyClusters = cms.Path(~process.logErrorTooManyClusters)
-process.Flag_EcalDeadCellTriggerPrimitiveFilter = cms.Path(process.EcalDeadCellTriggerPrimitiveFilter)
-process.Flag_ecalLaserCorrFilter = cms.Path(process.ecalLaserCorrFilter)
-process.Flag_globalSuperTightHalo2016Filter = cms.Path(process.globalSuperTightHalo2016Filter)
-process.Flag_eeBadScFilter = cms.Path(process.eeBadScFilter)
-process.Flag_METFilters = cms.Path(process.metFilters)
-process.Flag_chargedHadronTrackResolutionFilter = cms.Path(process.chargedHadronTrackResolutionFilter)
-process.Flag_globalTightHalo2016Filter = cms.Path(process.globalTightHalo2016Filter)
-process.Flag_CSCTightHaloTrkMuUnvetoFilter = cms.Path(process.CSCTightHaloTrkMuUnvetoFilter)
-process.Flag_HBHENoiseIsoFilter = cms.Path(process.HBHENoiseFilterResultProducer+process.HBHENoiseIsoFilter)
-process.Flag_BadChargedCandidateSummer16Filter = cms.Path(process.BadChargedCandidateSummer16Filter)
-process.Flag_hcalLaserEventFilter = cms.Path(process.hcalLaserEventFilter)
-process.Flag_BadPFMuonFilter = cms.Path(process.BadPFMuonFilter)
-process.Flag_ecalBadCalibFilter = cms.Path(process.ecalBadCalibFilter)
-process.Flag_HBHENoiseFilter = cms.Path(process.HBHENoiseFilterResultProducer+process.HBHENoiseFilter)
-process.Flag_trkPOG_toomanystripclus53X = cms.Path(~process.toomanystripclus53X)
-process.Flag_EcalDeadCellBoundaryEnergyFilter = cms.Path(process.EcalDeadCellBoundaryEnergyFilter)
-process.Flag_BadChargedCandidateFilter = cms.Path(process.BadChargedCandidateFilter)
-process.Flag_trkPOG_manystripclus53X = cms.Path(~process.manystripclus53X)
-process.Flag_BadPFMuonSummer16Filter = cms.Path(process.BadPFMuonSummer16Filter)
-process.Flag_muonBadTrackFilter = cms.Path(process.muonBadTrackFilter)
-process.Flag_CSCTightHalo2015Filter = cms.Path(process.CSCTightHalo2015Filter)
+process.simulation_step = cms.Path(process.psim)
+process.reconstruction_befmix_step = cms.Path(process.reconstruction_befmix)
+process.digitisation_step = cms.Path(process.pdigi)
+process.datamixing_step = cms.Path(process.pdatamix)
+process.L1simulation_step = cms.Path(process.SimL1Emulator)
+process.digi2raw_step = cms.Path(process.DigiToRaw)
+process.L1Reco_step = cms.Path(process.L1Reco)
+process.reconstruction_step = cms.Path(process.reconstruction)
+process.genfiltersummary_step = cms.EndPath(process.genFilterSummary)
 process.endjob_step = cms.EndPath(process.endOfProcess)
-process.MINIAODSIMoutput_step = cms.EndPath(process.MINIAODSIMoutput)
+process.AODSIMoutput_step = cms.EndPath(process.AODSIMoutput)
 
 # Schedule definition
-process.schedule = cms.Schedule(process.Flag_HBHENoiseFilter,process.Flag_HBHENoiseIsoFilter,process.Flag_CSCTightHaloFilter,process.Flag_CSCTightHaloTrkMuUnvetoFilter,process.Flag_CSCTightHalo2015Filter,process.Flag_globalTightHalo2016Filter,process.Flag_globalSuperTightHalo2016Filter,process.Flag_HcalStripHaloFilter,process.Flag_hcalLaserEventFilter,process.Flag_EcalDeadCellTriggerPrimitiveFilter,process.Flag_EcalDeadCellBoundaryEnergyFilter,process.Flag_ecalBadCalibFilter,process.Flag_goodVertices,process.Flag_eeBadScFilter,process.Flag_ecalLaserCorrFilter,process.Flag_trkPOGFilters,process.Flag_chargedHadronTrackResolutionFilter,process.Flag_muonBadTrackFilter,process.Flag_BadChargedCandidateFilter,process.Flag_BadPFMuonFilter,process.Flag_BadChargedCandidateSummer16Filter,process.Flag_BadPFMuonSummer16Filter,process.Flag_trkPOG_manystripclus53X,process.Flag_trkPOG_toomanystripclus53X,process.Flag_trkPOG_logErrorTooManyClusters,process.Flag_METFilters,process.endjob_step,process.MINIAODSIMoutput_step)
-process.schedule.associate(process.patTask)
-from PhysicsTools.PatAlgos.tools.helpers import associatePatAlgosToolsTask
-associatePatAlgosToolsTask(process)
-
-#Setup FWK for multithreaded
-process.options.numberOfThreads=cms.untracked.uint32(8)
-process.options.numberOfStreams=cms.untracked.uint32(0)
+process.schedule = cms.Schedule(process.simulation_step,process.reconstruction_befmix_step,process.digitisation_step,process.datamixing_step,process.L1simulation_step,process.digi2raw_step,process.L1Reco_step,process.reconstruction_step)
+process.schedule.extend(process.HLTSchedule)
+process.schedule.extend([process.endjob_step,process.AODSIMoutput_step])
+# filter all path with the production filter sequence
+for path in process.paths:
+	if path in ['lhe_step']: continue
+	getattr(process,path)._seq = process.generator * getattr(process,path)._seq 
 
 # customisation of the process.
+
+# Automatic addition of the customisation function from SimGeneral.DataMixingModule.customiseForPremixingInput
+from SimGeneral.DataMixingModule.customiseForPremixingInput import customiseForPreMixingInput 
+
+#call to customisation function customiseForPreMixingInput imported from SimGeneral.DataMixingModule.customiseForPremixingInput
+process = customiseForPreMixingInput(process)
 
 # Automatic addition of the customisation function from Configuration.DataProcessing.Utils
 from Configuration.DataProcessing.Utils import addMonitoring 
@@ -164,24 +124,16 @@ from Configuration.DataProcessing.Utils import addMonitoring
 #call to customisation function addMonitoring imported from Configuration.DataProcessing.Utils
 process = addMonitoring(process)
 
-# End of customisation functions
-#do not add changes to your config after this point (unless you know what you are doing)
-from FWCore.ParameterSet.Utilities import convertToUnscheduled
-process=convertToUnscheduled(process)
+# Automatic addition of the customisation function from HLTrigger.Configuration.customizeHLTforMC
+from HLTrigger.Configuration.customizeHLTforMC import customizeHLTforFastSim 
 
-# customisation of the process.
-
-# Automatic addition of the customisation function from PhysicsTools.PatAlgos.slimming.miniAOD_tools
-from PhysicsTools.PatAlgos.slimming.miniAOD_tools import miniAOD_customizeAllMCFastSim 
-
-#call to customisation function miniAOD_customizeAllMCFastSim imported from PhysicsTools.PatAlgos.slimming.miniAOD_tools
-process = miniAOD_customizeAllMCFastSim(process)
+#call to customisation function customizeHLTforFastSim imported from HLTrigger.Configuration.customizeHLTforMC
+process = customizeHLTforFastSim(process)
 
 # End of customisation functions
 
 # Customisation from command line
+process.source.numberEventsInLuminosityBlock = cms.untracked.uint32(200)
 
-# Add early deletion of temporary data products to reduce peak memory need
-from Configuration.StandardSequences.earlyDeleteSettings_cff import customiseEarlyDelete
-process = customiseEarlyDelete(process)
-# End adding early deletion
+# Customisation from command line
+process.source.numberEventsInLuminosityBlock = cms.untracked.uint32(200)
