@@ -1,6 +1,11 @@
 #!/bin/bash
 echo "================= CMSRUN starting jobNum=$1 ====================" | tee -a job.log
 
+lsb_release -a 
+
+echo "================= CURL GRIDPACK ===================="| tee -a job.log
+curl -s --insecure https://amarini.web.cern.ch/amarini/WPhadWPhadJJ_EWK_LO_SM_mjj100_pTj10_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz --retry 2 -o ./WPhadWPhadJJ_EWK_LO_SM_mjj100_pTj10_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz
+
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 export SCRAM_ARCH=slc6_amd64_gcc530
 
@@ -60,3 +65,5 @@ echo "================= CMSRUN starting Step 4 ====================" | tee -a jo
 cmsRun -e -j FrameworkJobReport.xml step4.py 
 
 echo "================= CMSRUN finished ====================" | tee -a job.log
+
+ls -ltr | tee -a job.log
