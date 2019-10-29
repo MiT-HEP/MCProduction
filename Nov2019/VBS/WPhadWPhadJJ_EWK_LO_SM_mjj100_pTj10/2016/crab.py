@@ -16,7 +16,8 @@ config.JobType.numCores=8
 
 config.Data.splitting = 'EventBased'
 config.Data.unitsPerJob = 500
-config.Data.totalUnits = 2000000
+#config.Data.totalUnits = 2000000
+config.Data.totalUnits = 200000
 config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshmm/%s/' % (getUsernameFromSiteDB())
 config.Data.publication = True
 config.Data.outputPrimaryDataset = 'WPhadWPhadJJ_EWK_LO_SM_mjj100_pTj10_13TeV_madgraphMLM_pythia8'

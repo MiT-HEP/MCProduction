@@ -37,7 +37,7 @@ echo "================= CMSRUN starting Step 2 ====================" | tee -a jo
 cmsRun -j GenSimAODSim_step2.log step2.py 
 
 echo "================= CMSRUN starting Step 3 ====================" | tee -a job.log
-cmsRun -j Reco_step3.log step2.py 
+cmsRun -j Reco_step3.log step3.py 
 
 
 echo "================= CMSRUN setting up CMSSW_9_4_9 ===================="| tee -a job.log
