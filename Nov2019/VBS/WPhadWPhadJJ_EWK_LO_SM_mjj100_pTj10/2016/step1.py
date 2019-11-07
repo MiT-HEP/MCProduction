@@ -163,4 +163,4 @@ process = customisePostLS1(process)
 # End of customisation functions
 
 # Customisation from command line
-process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=int(24)
+#process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=int(24)
