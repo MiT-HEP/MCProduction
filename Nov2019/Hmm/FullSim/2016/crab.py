@@ -23,6 +23,6 @@ config.Data.publication = True
 config.Data.outputPrimaryDataset = 'GluGlu_HToMuMu_M125_13TeV_powheg_pythia8'
 config.Data.outputDatasetTag ='FullSim_94X-MINIAODSIM'
 
-#config.Site.storageSite = 'T2_CH_CERN'
-config.Site.storageSite = 'T3_US_MIT'
+config.Site.storageSite = 'T2_CH_CERN'
+#config.Site.storageSite = 'T3_US_MIT'
 

@@ -4,6 +4,8 @@ echo "================= CMSRUN starting jobNum=$1 ====================" | tee -a
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 export SCRAM_ARCH=slc6_amd64_gcc530
 
+[ -f x509up_u$(id -u) ] && { chmod go-rwx x509up_u$(id -u); cp -v x509up_u$(id -u) /tmp/ ;}
+
 BASE=$PWD
 
 echo "================= CMSRUN setting up CMSSW_7_1_26 ===================="| tee -a job.log

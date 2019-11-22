@@ -106,9 +106,9 @@ process.schedule = cms.Schedule(process.simulation_step,process.reconstruction_b
 process.schedule.extend(process.HLTSchedule)
 process.schedule.extend([process.endjob_step,process.AODSIMoutput_step])
 # filter all path with the production filter sequence
-for path in process.paths:
-	if path in ['lhe_step']: continue
-	getattr(process,path)._seq = process.generator * getattr(process,path)._seq 
+#for path in process.paths:
+#	if path in ['lhe_step']: continue
+#	getattr(process,path)._seq = process.generator * getattr(process,path)._seq 
 
 # customisation of the process.
 
@@ -132,8 +132,3 @@ process = customizeHLTforFastSim(process)
 
 # End of customisation functions
 
-# Customisation from command line
-process.source.numberEventsInLuminosityBlock = cms.untracked.uint32(200)
-
-# Customisation from command line
-process.source.numberEventsInLuminosityBlock = cms.untracked.uint32(200)
