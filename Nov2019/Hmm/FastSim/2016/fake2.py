@@ -42,9 +42,7 @@ process.maxEvents = cms.untracked.PSet(
 )
 
 # Input source
-process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring('file:step1.root'),
-    secondaryFileNames = cms.untracked.vstring()
+process.source = cms.Source("EmptySource",
 )
 
 process.options = cms.untracked.PSet(
