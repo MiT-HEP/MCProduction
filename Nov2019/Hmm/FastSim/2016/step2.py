@@ -96,7 +96,8 @@ process.GlobalTag = GlobalTag(process.GlobalTag, '102X_upgrade2018_realistic_v15
 #)
 
 
-process.generator = cms.EDFilter("Pythia8GeneratorFilter",
+#process.generator = cms.EDFilter("Pythia8GeneratorFilter",
+process.generator = cms.EDFilter("Pythia8HadronizerFilter",
     #GridpackPath = cms.string('/cvmfs/cms.cern.ch/phys_generator/gridpacks/slc6_amd64_gcc481/13TeV/powheg/V2/gg_H_quark-mass-effects_NNPDF30_13TeV_M125/v2/gg_H_quark-mass-effects_NNPDF30_13TeV_M125_tarball.tar.gz'),
     comEnergy = cms.double(13000.0),
     filterEfficiency = cms.untracked.double(1.0),
