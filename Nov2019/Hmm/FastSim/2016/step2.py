@@ -82,7 +82,7 @@ process.genstepfilter.triggerConditions=cms.vstring("generation_step")
 import random
 from pu import puListFull
 random.shuffle(puListFull)
-puList= puListFull[0:20]
+puList= puListFull[0:5]
 process.mixData.input.fileNames = cms.untracked.vstring(puList)
 from Configuration.AlCa.GlobalTag import GlobalTag
 process.GlobalTag = GlobalTag(process.GlobalTag, '102X_upgrade2018_realistic_v15', '')
