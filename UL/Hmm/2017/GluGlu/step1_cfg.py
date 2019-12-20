@@ -34,7 +34,11 @@ process.maxEvents = cms.untracked.PSet(
 )
 
 # Input source
-process.source = cms.Source("EmptySource")
+firstLumi=10*options.jobNum+1 ## eventsPerJob/eventsPerLumi*jobNum +1
+process.source = cms.Source("EmptySource",
+        firstLuminosityBlock  = cms.untracked.uint32(firstLumi),
+        numberEventsInLuminosityBlock = cms.untracked.uint32(100)
+        )
 
 process.options = cms.untracked.PSet(
 
@@ -199,9 +203,6 @@ process = addMonitoring(process)
 # End of customisation functions
 
 # Customisation from command line
-firstLumi=10*options.jobNum+1 ## eventsPerJob/eventsPerLumi*jobNum +1
-process.source.firstLuminosityBlock  = cms.untracked.uint32(firstLumi),
-process.source.numberEventsInLuminosityBlock = cms.untracked.uint32(100)
 import os,random
 random.seed = os.urandom(10) #~10^14
 process.RandomNumberGeneratorService.externalLHEProducer.initialSeed = random.randint(0,999999)
