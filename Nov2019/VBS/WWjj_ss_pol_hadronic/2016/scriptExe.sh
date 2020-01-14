@@ -4,26 +4,24 @@ echo "================= CMSRUN starting jobNum=$1 ====================" | tee -a
 lsb_release -a 
 
 echo "================= CURL GRIDPACK ===================="| tee -a job.log
-#curl --insecure https://amarini.web.cern.ch/amarini/WPhadWPhadJJ_EWK_LO_SM_mjj100_pTj10_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz --retry 2 -o ./WPhadWPhadJJ_EWK_LO_SM_mjj100_pTj10_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz
 curl --insecure https://amarini.web.cern.ch/amarini/WWjj_SS_llll_hadronic_slc6_amd64_gcc481_CMSSW_7_1_30_tarball.tar.xz --retry 2 -o ./WWjj_SS_llll_hadronic_slc6_amd64_gcc481_CMSSW_7_1_30_tarball.tar.xz
-curl --insecure https://amarini.web.cern.ch/amarini/WWjj_SS_ltll_hadronic_slc6_amd64_gcc481_CMSSW_7_1_30_tarball.tar.xz --retry 2 -o ./WWjj_SS_ltll_hadronic_slc6_amd64_gcc481_CMSSW_7_1_30_tarball.tar.xz
+curl --insecure https://amarini.web.cern.ch/amarini/WWjj_SS_lttt_hadronic_slc6_amd64_gcc481_CMSSW_7_1_30_tarball.tar.xz --retry 2 -o ./WWjj_SS_lttt_hadronic_slc6_amd64_gcc481_CMSSW_7_1_30_tarball.tar.xz
 
 ls -ltr 
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
-export SCRAM_ARCH=slc6_amd64_gcc530
 
 BASE=$PWD
 
-echo "================= CMSRUN setting up CMSSW_7_1_26 ===================="| tee -a job.log
+echo "================= CMSRUN setting up CMSSW_7_1_30 ===================="| tee -a job.log
 export SCRAM_ARCH=slc6_amd64_gcc481
 source /cvmfs/cms.cern.ch/cmsset_default.sh
-if [ -r CMSSW_7_1_26/src ] ; then 
-     echo release CMSSW_7_1_26 already exists
+if [ -r CMSSW_7_1_30/src ] ; then 
+     echo release CMSSW_7_1_30 already exists
  else
-     scram p CMSSW CMSSW_7_1_26
+     scram p CMSSW CMSSW_7_1_30
  fi
- cd CMSSW_7_1_26/src
+ cd CMSSW_7_1_30/src
  eval `scram runtime -sh`
 
 cd $BASE

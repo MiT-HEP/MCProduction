@@ -8,7 +8,7 @@ config.General.transferLogs = False
 
 config.JobType.pluginName = 'PrivateMC'
 #config.JobType.disableAutomaticOutputCollection = True
-config.JobType.maxMemoryMB = 2500
+config.JobType.maxMemoryMB = 4900
 config.JobType.psetName = 'fake.py' ## fake the last step -> step4 + empty source
 config.JobType.inputFiles = ['scriptExe.sh', 'step1_cfg.py','step2_cfg.py','step3_cfg.py','step4_cfg.py','step5_cfg.py','step6_cfg.py','pu.py']
 config.JobType.scriptExe='scriptExe.sh'

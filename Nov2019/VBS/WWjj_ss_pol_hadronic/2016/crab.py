@@ -1,7 +1,7 @@
 from CRABClient.UserUtilities import config, getUsernameFromSiteDB
 config = config()
 
-config.General.requestName = 'amarini_FullSim_WWjj_SS_ltll'
+config.General.requestName = 'amarini_FullSim_WWjj_SS_llll'
 config.General.workArea = 'crab_privateMCProduction'
 config.General.transferOutputs = True
 config.General.transferLogs = False
@@ -20,7 +20,7 @@ config.Data.unitsPerJob = 500
 config.Data.totalUnits = 200000
 config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshmm/%s/' % (getUsernameFromSiteDB())
 config.Data.publication = True
-config.Data.outputPrimaryDataset = 'WWjj_SS_ltll_hadronic'
+config.Data.outputPrimaryDataset = 'WWjj_SS_llll_hadronic'
 config.Data.outputDatasetTag ='FullSim_94X-MINIAODSIM'
 
 config.Site.storageSite = 'T2_CH_CERN'

@@ -77,6 +77,9 @@ process.LHEoutput = cms.OutputModule("PoolOutputModule",
     )
 )
 
+#Setup FWK for multithreaded
+process.options.numberOfThreads=cms.untracked.uint32(1)
+process.options.numberOfStreams=cms.untracked.uint32(0)
 # Additional output definition
 
 # Other statements
@@ -112,7 +115,7 @@ process.generator = cms.EDFilter("Pythia8HadronizerFilter",
 )
 
 import os
-print "-> Using gridpack",os.environ['PWD']+'/WPhadWPhadJJ_EWK_LO_SM_mjj100_pTj10_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz'
+print "-> Using gridpack",os.environ['PWD']+'/WWjj_SS_llll_hadronic_slc6_amd64_gcc481_CMSSW_7_1_30_tarball.tar.xz'
 
 process.externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
     nEvents = cms.untracked.uint32(500),
@@ -120,7 +123,7 @@ process.externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
     scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh'),
     numberOfParameters = cms.uint32(1),
     #args = cms.vstring('/afs/cern.ch/user/a/amarini/work/public/VBS/WPhadWPhadJJ_EWK_LO_SM_mjj100_pTj10_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz')
-    args = cms.vstring(os.environ['PWD']+'/WWjj_SS_ltll_hadronic_slc6_amd64_gcc481_CMSSW_7_1_30_tarball.tar.xz')
+    args = cms.vstring(os.environ['PWD']+'/WWjj_SS_llll_hadronic_slc6_amd64_gcc481_CMSSW_7_1_30_tarball.tar.xz')
 )
 
 

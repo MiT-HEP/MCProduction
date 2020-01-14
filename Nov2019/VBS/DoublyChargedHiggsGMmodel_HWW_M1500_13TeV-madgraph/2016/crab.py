@@ -1,7 +1,7 @@
 from CRABClient.UserUtilities import config, getUsernameFromSiteDB
 config = config()
 
-config.General.requestName = 'amarini_FullSim_WPhadWPhadJJ_EWK'
+config.General.requestName = 'amarini_FullSim_DoublyChargedHiggsGMmodel_M1500'
 config.General.workArea = 'crab_privateMCProduction'
 config.General.transferOutputs = True
 config.General.transferLogs = False
