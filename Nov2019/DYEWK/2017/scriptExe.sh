@@ -3,6 +3,9 @@ echo "================= CMSRUN starting jobNum=$1 ====================" | tee -a
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 
+echo "================= CURL GRIDPACK ===================="| tee -a job.log
+curl --insecure https://amarini.web.cern.ch/amarini/ZbbZhadJJ_EWK_LO_SM_mjj100_pTj10_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz --retry 2 -o ./ZbbZhadJJ_EWK_LO_SM_mjj100_pTj10_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz
+
 BASE=$PWD
 
 echo "================= CMSRUN setting up CMSSW_9_3_16_patch1 ===================="| tee -a job.log

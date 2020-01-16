@@ -216,6 +216,8 @@ process.generator = cms.EDFilter("Herwig7GeneratorFilter",
     runModeList = cms.untracked.string('read,run')
 )
 
+import os
+print "-> Using gridpack",os.environ['PWD']+'/.tar.xz'
 
 process.externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
     args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/2017/13TeV/madgraph/V5_2.4.2/VBS/LLJJ_EWK_pTj0_SM_5f_LO_ptJ0_MLL_105-160_NNPDF31NNLO_slc6_amd64_gcc481_CMSSW_7_1_30_tarball.tar.xz'),

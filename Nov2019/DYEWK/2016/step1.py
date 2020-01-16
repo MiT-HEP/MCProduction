@@ -212,6 +212,9 @@ process.generator = cms.EDFilter("ThePEGHadronizerFilter",
 )
 
 
+import os
+print "-> Using gridpack",os.environ['PWD']+'/.tar.xz'
+
 process.externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
     nEvents = cms.untracked.uint32(500),
     outputFile = cms.string('cmsgrid_final.lhe'),
