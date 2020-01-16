@@ -6,7 +6,7 @@ source /cvmfs/cms.cern.ch/cmsset_default.sh
 BASE=$PWD
 
 echo "================= CMSRUN setting up CMSSW_10_2_16_patch2 ===================="| tee -a job.log
-export SCRAM_ARCH=slc6_amd64_gcc630
+export SCRAM_ARCH=slc6_amd64_gcc700
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 if [ -r CMSSW_10_2_16_patch2/src ] ; then 
      echo release CMSSW_10_2_16_patch2 already exists
