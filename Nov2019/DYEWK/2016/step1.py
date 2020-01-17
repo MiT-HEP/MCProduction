@@ -213,14 +213,14 @@ process.generator = cms.EDFilter("ThePEGHadronizerFilter",
 
 
 import os
-print "-> Using gridpack",os.environ['PWD']+'/.tar.xz'
+print "-> Using gridpack",os.environ['PWD']+'/LLJJ_EWK_SM_5f_LO_ptJ0_MLL_105-160_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz'
 
 process.externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
     nEvents = cms.untracked.uint32(500),
     outputFile = cms.string('cmsgrid_final.lhe'),
     scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh'),
     numberOfParameters = cms.uint32(1),
-    args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/2017/13TeV/madgraph/V5_2.4.2/VBS/LLJJ_EWK_SM_5f_LO_ptJ0_MLL_105-160_slc6_amd64_gcc481_CMSSW_7_1_30_tarball.tar.xz')
+    args = cms.vstring(os.environ['PWD']+'/LLJJ_EWK_SM_5f_LO_ptJ0_MLL_105-160_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz')
 )
 
 

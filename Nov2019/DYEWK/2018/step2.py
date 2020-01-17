@@ -86,7 +86,7 @@ process.PREMIXRAWoutput = cms.OutputModule("PoolOutputModule",
 import random
 from pu import puListFull
 random.shuffle(puListFull)
-puList= puListFull[0:20]
+puList= puListFull[0:5]
 process.mixData.input.fileNames = cms.untracked.vstring(puList)
 
 from Configuration.AlCa.GlobalTag import GlobalTag
