@@ -20,6 +20,10 @@ if [ -r CMSSW_9_3_16_patch1/src ] ; then
  eval `scram runtime -sh`
 
 cd $BASE
+
+# for my run generic tarball
+mv -v run_generic_tarball.sh CMSSW_9_3_16_patch1/src/
+
 echo "================= CMSRUN starting Step 1 ====================" | tee -a job.log
 cmsRun -j GenSimAODSim_step1.log step1.py jobNum=$1
 
