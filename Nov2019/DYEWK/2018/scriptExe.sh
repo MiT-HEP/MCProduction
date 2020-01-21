@@ -1,5 +1,6 @@
 #!/bin/bash
 echo "================= CMSRUN starting jobNum=$1 ====================" | tee -a job.log
+echo "job counting $(($1+2000))"
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 
@@ -25,7 +26,7 @@ cd $BASE
 mv -v run_generic_tarball.sh CMSSW_10_2_16_patch2/src/
 
 echo "================= CMSRUN starting Step 1 ====================" | tee -a job.log
-cmsRun -j GenSimAODSim_step1.log step1.py jobNum=$1
+cmsRun -j GenSimAODSim_step1.log step1.py jobNum=$(($1+2000))
 
 echo "================= CMSRUN setting up CMSSW_10_2_5 ===================="| tee -a job.log
 
