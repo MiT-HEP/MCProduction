@@ -4,7 +4,7 @@ echo "================= CMSRUN starting jobNum=$1 ====================" | tee -a
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 
 echo "================= CURL GRIDPACK ===================="| tee -a job.log
-curl --insecure https://amarini.web.cern.ch/amarini/LLJJ_EWK_pTj0_SM_5f_LO_ptJ0_MLL_105-160_NNPDF31NNLO_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz --retry 2 -o ./LLJJ_EWK_pTj0_SM_5f_LO_ptJ0_MLL_105-160_NNPDF31NNLO_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz
+curl --insecure https://amarini.web.cern.ch/amarini/LLJJ_EWK_pTj0_SM_5f_LO_ptJ0_MLL_105-160_NNPDF31NNLO_new_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz --retry 2 -o ./LLJJ_EWK_pTj0_SM_5f_LO_ptJ0_MLL_105-160_NNPDF31NNLO_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz
 
 BASE=$PWD
 

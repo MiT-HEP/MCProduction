@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/python/HIG-RunIIFall18wmLHEGS-03223-fragment.py --fileout file:step1.root --mc --eventcontent RAWSIM,LHE --datatier GEN-SIM,LHE --conditions 102X_upgrade2018_realistic_v11 --beamspot Realistic25ns13TeVEarly2018Collision --step LHE,GEN,SIM --nThreads 2 --geometry DB:Extended --era Run2_2018 --python_filename step1.py --no_exec --customise Configuration/DataProcessing/Utils.addMonitoring -n 500
+# with command line options: Configuration/GenProduction/python/HIG-RunIIFall18wmLHEGS-03223-fragment.py --fileout file:step1.root --mc --eventcontent RAWSIM,LHE --datatier GEN-SIM,LHE --conditions 102X_upgrade2018_realistic_v11 --beamspot Realistic25ns13TeVEarly2018Collision --step LHE,GEN,SIM --nThreads 2 --geometry DB:Extended --era Run2_2018 --python_filename step1.py --no_exec --customise Configuration/DataProcessing/Utils.addMonitoring -n 1000
 import FWCore.ParameterSet.Config as cms
 
 from FWCore.ParameterSet.VarParsing import VarParsing
@@ -31,7 +31,7 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(500)
+    input = cms.untracked.int32(1000)
 )
 
 # Input source
@@ -47,7 +47,7 @@ process.options = cms.untracked.PSet(
 
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('Configuration/GenProduction/python/HIG-RunIIFall18wmLHEGS-03223-fragment.py nevts:500'),
+    annotation = cms.untracked.string('Configuration/GenProduction/python/HIG-RunIIFall18wmLHEGS-03223-fragment.py nevts:1000'),
     name = cms.untracked.string('Applications'),
     version = cms.untracked.string('$Revision: 1.19 $')
 )
@@ -221,7 +221,7 @@ print "-> Using gridpack",os.environ['PWD']+'/LLJJ_EWK_pTj0_SM_5f_LO_ptJ0_MLL_10
 
 process.externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
     args = cms.vstring(os.environ['PWD']+'/LLJJ_EWK_pTj0_SM_5f_LO_ptJ0_MLL_105-160_NNPDF31NNLO_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz'),
-    nEvents = cms.untracked.uint32(500),
+    nEvents = cms.untracked.uint32(1000),
     numberOfParameters = cms.uint32(1),
     outputFile = cms.string('cmsgrid_final.lhe'),
     #scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh')

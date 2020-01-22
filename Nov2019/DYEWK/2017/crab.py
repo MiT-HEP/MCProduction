@@ -1,7 +1,7 @@
 from CRABClient.UserUtilities import config, getUsernameFromSiteDB
 config = config()
 
-config.General.requestName = 'amarini_FullSim_DYEWK_2017'
+config.General.requestName = 'amarini_FullSim_DYEWK2_2017'
 config.General.workArea = 'crab_privateMCProduction'
 config.General.transferOutputs = True
 config.General.transferLogs = False
@@ -15,12 +15,12 @@ config.JobType.scriptExe='scriptExe.sh'
 config.JobType.numCores=8
 
 config.Data.splitting = 'EventBased'
-config.Data.unitsPerJob = 500
-config.Data.totalUnits = 1000000
+config.Data.unitsPerJob = 1000
+config.Data.totalUnits = 3000000
 config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshmm/%s/' % (getUsernameFromSiteDB())
 #config.Data.outLFNDirBase = '/store/user/%s/' % (getUsernameFromSiteDB())
 config.Data.publication = True
-config.Data.outputPrimaryDataset = 'EWK_LLJJ_MLL_105-160_ptJ-0_SM_5f_LO_TuneEEC5_13TeV-madgraph-herwigpp'
+config.Data.outputPrimaryDataset = 'EWK_LLJJ_MLL_105-160_ptJ-0_SM_5f_LO_TuneEEC5_13TeV-madgraph-h7'
 config.Data.outputDatasetTag ='RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-MINIAODSIM'
 
 config.Site.storageSite = 'T2_CH_CERN'

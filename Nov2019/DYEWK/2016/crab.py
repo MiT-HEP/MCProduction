@@ -15,8 +15,8 @@ config.JobType.scriptExe='scriptExe.sh'
 config.JobType.numCores=8
 
 config.Data.splitting = 'EventBased'
-config.Data.unitsPerJob = 500
-config.Data.totalUnits = 1000000
+config.Data.unitsPerJob = 1000
+config.Data.totalUnits = 3000000
 config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshmm/%s/' % (getUsernameFromSiteDB())
 #config.Data.outLFNDirBase = '/store/user/%s/' % (getUsernameFromSiteDB())
 config.Data.publication = True
