@@ -12,7 +12,7 @@ config.JobType.maxMemoryMB = 4900
 config.JobType.psetName = 'fake.py' ## fake the last step -> step4 + empty source
 config.JobType.inputFiles = ['scriptExe.sh', 'step1.py','step2.py','step3.py','step4.py','pu.py','run_generic_tarball.sh']
 config.JobType.scriptExe='scriptExe.sh'
-config.JobType.numCores=8
+config.JobType.numCores=4
 
 config.Data.splitting = 'EventBased'
 config.Data.unitsPerJob = 1000
