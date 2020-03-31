@@ -3,11 +3,12 @@ echo "================= CMSRUN starting jobNum=$1 ====================" | tee -a
 
 lsb_release -a 
 
+#GRIDPACK=WWjj_tt_hadronic_slc7_amd64_gcc820_CMSSW_9_3_16_tarball.tar.xz
 echo "================= CURL GRIDPACK ===================="| tee -a job.log
 
-#GRIDPACK=WWjj_ll_hadronic_slc7_amd64_gcc820_CMSSW_9_3_16_tarball.tar.xz
-#GRIDPACK=WWjj_lt_hadronic_slc7_amd64_gcc820_CMSSW_9_3_16_tarball.tar.xz
-GRIDPACK=WWjj_tt_hadronic_slc7_amd64_gcc820_CMSSW_9_3_16_tarball.tar.xz
+#GRIDPACK=WWjj_ll_hadronic_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz
+#GRIDPACK=WWjj_lt_hadronic_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz
+GRIDPACK=WWjj_tt_hadronic_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz
 
 curl --insecure https://amarini.web.cern.ch/amarini/$GRIDPACK --retry 2 -o ./$GRIDPACK
 
