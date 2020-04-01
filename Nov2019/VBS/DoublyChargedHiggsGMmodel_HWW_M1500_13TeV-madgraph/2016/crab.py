@@ -12,13 +12,13 @@ config.JobType.maxMemoryMB = 2500
 config.JobType.psetName = 'fake.py' ## fake the last step -> step4 + empty source
 config.JobType.inputFiles = ['scriptExe.sh', 'step1.py','step2.py','step3.py','step4.py','pu.py']
 config.JobType.scriptExe='scriptExe.sh'
-config.JobType.numCores=8
+config.JobType.numCores=2
 
 config.Data.splitting = 'EventBased'
 config.Data.unitsPerJob = 500
 #config.Data.totalUnits = 2000000
-config.Data.totalUnits = 200000
-config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshmm/%s/' % (getUsernameFromSiteDB())
+config.Data.totalUnits = 2000000
+config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshmm/amarini/' 
 config.Data.publication = True
 config.Data.outputPrimaryDataset = 'DoublyChargedHiggsGMmodel_HWW_M1500_13TeV-madgraph'
 config.Data.outputDatasetTag ='FullSim_94X-MINIAODSIM'
