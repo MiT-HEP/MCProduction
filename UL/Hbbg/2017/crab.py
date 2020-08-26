@@ -1,4 +1,4 @@
-from CRABClient.UserUtilities import config, getUsernameFromSiteDB
+from CRABClient.UserUtilities import config
 config = config()
 
 config.General.requestName = 'amarini_UL2017_GGHMH125_powheg'
@@ -18,7 +18,7 @@ config.Data.splitting = 'EventBased'
 config.Data.unitsPerJob = 500
 config.Data.totalUnits = 500000
 #config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshmm/%s/' % (getUsernameFromSiteDB())
-config.Data.outLFNDirBase = '/store/user/%s/' % (getUsernameFromSiteDB())
+config.Data.outLFNDirBase = '/store/user/amarini/'
 config.Data.publication = True
 config.Data.outputPrimaryDataset = 'GluGlu_HiggsZG_Zbb_M125_13TeV_powheg_pythia8'
 config.Data.outputDatasetTag ='UL2017-MINIAODSIM'

@@ -20,7 +20,7 @@ config.Data.totalUnits = 500000
 #config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshmm/%s/' % (getUsernameFromSiteDB())
 config.Data.outLFNDirBase = '/store/user/amarini/'
 config.Data.publication = True
-config.Data.outputPrimaryDataset = 'GluGlu_HiggsZG_Zbb_M125_13TeV_powheg_pythia8'
+config.Data.outputPrimaryDataset = 'VBF_HiggsZG_Zbb_M125_13TeV_powheg_pythia8'
 config.Data.outputDatasetTag ='UL2018-MINIAODSIM'
 
 config.Site.storageSite = 'T2_CH_CERN'
