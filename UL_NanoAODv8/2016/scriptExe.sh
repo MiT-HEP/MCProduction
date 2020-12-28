@@ -1,6 +1,18 @@
 #!/bin/bash
 echo "================= CMSRUN starting jobNum=$1 ====================" | tee -a job.log
 
+[[ "$2" == "chain=WWjj_ss_pol_hadronic"* ]] && {
+    echo "================= CURL GRIDPACK ===================="| tee -a job.log
+    
+    [ "$2" == "chain=WWjj_ss_pol_hadronic_ll" ] && export GRIDPACK=WWjj_ll_hadronic_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz
+    [ "$2" == "chain=WWjj_ss_pol_hadronic_lt" ] && export GRIDPACK=WWjj_lt_hadronic_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz
+    [ "$2" == "chain=WWjj_ss_pol_hadronic_tt" ] && export GRIDPACK=WWjj_tt_hadronic_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz
+    
+    curl --insecure https://amarini.web.cern.ch/amarini/$GRIDPACK --retry 2 -o ./$GRIDPACK
+    
+    ls -ltr 
+}
+
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 export SCRAM_ARCH=slc7_amd64_gcc700
 
@@ -21,7 +33,7 @@ MYCMSSW=CMSSW_10_6_18
 
 
 echo "================= CMSRUN starting Step 1 ====================" | tee -a job.log
-cmsRun -j step1.log step1_cfg.py jobNum=$1 chain=$2
+cmsRun -j step1.log step1_cfg.py jobNum=$1 $2
 
 MYCMSSW=CMSSW_10_6_17_patch1
     echo "================= CMSRUN setting up $MYCMSSW ===================="| tee -a job.log
