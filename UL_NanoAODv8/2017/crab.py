@@ -28,7 +28,8 @@ config.Data.outputDatasetTag ='UL2017-NANOAODSIMv8'
 config.Site.storageSite = 'T2_CH_CERN'
 #config.Site.storageSite = 'T3_US_MIT'
 
-do='hbbg'
+do='xxx'
+if do=='xxx': raise ValueError('Set do')
 if do=='hbbg' :
     config.General.requestName = 'amarini-UL2017_GGHMH125_powheg'
     config.Data.outputPrimaryDataset = 'GluGlu_HiggsZG_Zbb_M125_13TeV_powheg_pythia8'
