@@ -17,8 +17,8 @@ config.JobType.scriptExe='scriptExe.sh'
 config.Data.splitting = 'EventBased'
 config.Data.unitsPerJob = 500
 config.Data.totalUnits = 500000
-#config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshmm/%s/' % (getUsernameFromSiteDB())
-config.Data.outLFNDirBase = '/store/user/amarini/'
+config.Data.outLFNDirBase = '/store/group/phys_higgs/cmshmm/amarini/' # % (getUsernameFromSiteDB())
+#config.Data.outLFNDirBase = '/store/user/amarini/'
 config.Data.publication = True
 config.Data.outputDatasetTag ='UL2018-NANOAODSIMv8'
 
