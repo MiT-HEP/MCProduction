@@ -31,10 +31,15 @@ export SCRAM_ARCH=slc7_amd64_gcc700
 
 BASE=$PWD
 
-[[ "$2" == "chain=hplusplus"* ]] && export SCRAM_ARCH=slc6_amd64_gcc481
+MYCMSSW=CMSSW_10_6_17_patch1
+STEP1=step1_cfg.py
+[[ "$2" == "chain=hplusplus"* ]] && { 
+    export SCRAM_ARCH=slc6_amd64_gcc481 
+    MYCMSSW=CMSSW_7_1_26
+    STEP1=step1_71_cfg.py
+}
 [[ "$2" == "chain=hbbg" ]] && export SCRAM_ARCH=slc6_amd64_gcc630
 
-MYCMSSW=CMSSW_10_6_17_patch1
     echo "================= CMSRUN setting up $MYCMSSW ===================="| tee -a job.log
     if [ -r $MYCMSSW/src ] ; then 
      echo release $MYCMSSW already exists
@@ -48,10 +53,8 @@ MYCMSSW=CMSSW_10_6_17_patch1
 
 
 echo "================= CMSRUN starting Step 1 ====================" | tee -a job.log
-cmsRun -j step1.log step1_cfg.py jobNum=$1 $2
+cmsRun -j step1.log $STEP1 jobNum=$1 $2
 
-#Clean CMSSW
-rm -r CMSSW_10_6_17_patch1
 
 export SCRAM_ARCH=slc7_amd64_gcc700
 MYCMSSW=CMSSW_10_6_17_patch1

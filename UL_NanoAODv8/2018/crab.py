@@ -10,7 +10,7 @@ config.JobType.pluginName = 'PrivateMC'
 config.JobType.maxMemoryMB = 2500
 config.JobType.psetName = 'fake.py' ## fake the last step -> step4 + empty source
 from glob import glob
-config.JobType.inputFiles = ['scriptExe.sh', 'step1_cfg.py','step2_cfg.py','step3_cfg.py','step4_cfg.py','step5_cfg.py','step6_cfg.py','step7_cfg.py','pu.py'] + glob('fragment*py')
+config.JobType.inputFiles = ['scriptExe.sh', 'step1_cfg.py','step2_cfg.py','step3_cfg.py','step4_cfg.py','step5_cfg.py','step6_cfg.py','step7_cfg.py','pu.py'] + glob('fragment*py') + ['step1_71_cfg.py']
 config.JobType.scriptExe='scriptExe.sh'
 #config.JobType.numCores=4
 
