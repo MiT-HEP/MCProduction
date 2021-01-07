@@ -9,8 +9,21 @@ echo "================= CMSRUN starting jobNum=$1 ====================" | tee -a
     [ "$2" == "chain=WWjj_ss_pol_hadronic_tt" ] && export GRIDPACK=WWjj_tt_hadronic_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz
     
     curl --insecure https://amarini.web.cern.ch/amarini/$GRIDPACK --retry 2 -o ./$GRIDPACK
+
+    [[ "$GRIDPACK" == *".tar.xz" ]]  && { 
+    unxz $GRIDPACK  #.tar
+    gzip ${GRIDPACK%%.xz} #--> tar.gz
+    mv -v ${GRIDPACK%%.xz}.gz ${GRIDPACK%%.tar.xz}.tgz ; 
+    GRIDPACK=${GRIDPACK%%.tar.xz}.tgz; 
+} 
     
-    ls -ltr 
+}
+
+[[ "$2" == "chain=hplusplus"* ]] && {
+    ## copy GRIDPACKS locally and rename them in tgz
+    cp -v /cvmfs/cms.cern.ch/phys_generator/gridpacks/slc6_amd64_gcc481/13TeV/madgraph/V5_2.3.3/DoublyChargedHiggsGMmodel_HWW_M1000/v1/DoublyChargedHiggsGMmodel_HWW_M1000_tarball.tar.xz ./DoublyChargedHiggsGMmodel_HWW_M1000_tarball.tgz
+    cp -v /cvmfs/cms.cern.ch/phys_generator/gridpacks/slc6_amd64_gcc481/13TeV/madgraph/V5_2.3.3/DoublyChargedHiggsGMmodel_HWW_M2000/v1/DoublyChargedHiggsGMmodel_HWW_M2000_tarball.tar.xz ./DoublyChargedHiggsGMmodel_HWW_M2000_tarball.tgz
+    cp -v /cvmfs/cms.cern.ch/phys_generator/gridpacks/slc6_amd64_gcc481/13TeV/madgraph/V5_2.3.3/DoublyChargedHiggsGMmodel_HWW_M1500/v1/DoublyChargedHiggsGMmodel_HWW_M1500_tarball.tar.xz ./DoublyChargedHiggsGMmodel_HWW_M1500_tarball.tgz
 }
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
@@ -18,6 +31,8 @@ export SCRAM_ARCH=slc7_amd64_gcc700
 
 BASE=$PWD
 
+[[ "$2" == "chain=hplusplus"* ]] && export SCRAM_ARCH=slc6_amd64_gcc481
+[[ "$2" == "chain=hbbg" ]] && export SCRAM_ARCH=slc6_amd64_gcc630
 
 MYCMSSW=CMSSW_10_6_18
     echo "================= CMSRUN setting up $MYCMSSW ===================="| tee -a job.log
@@ -35,6 +50,10 @@ MYCMSSW=CMSSW_10_6_18
 echo "================= CMSRUN starting Step 1 ====================" | tee -a job.log
 cmsRun -j step1.log step1_cfg.py jobNum=$1 $2
 
+#Clean CMSSW
+rm -r CMSSW_10_6_18
+
+export SCRAM_ARCH=slc7_amd64_gcc700
 MYCMSSW=CMSSW_10_6_17_patch1
     echo "================= CMSRUN setting up $MYCMSSW ===================="| tee -a job.log
     if [ -r $MYCMSSW/src ] ; then 
