@@ -4,11 +4,13 @@ echo "================= CMSRUN starting jobNum=$1 ====================" | tee -a
 [[ "$2" == "chain=WWjj_ss_pol_hadronic"* ]] && {
     echo "================= CURL GRIDPACK ===================="| tee -a job.log
     
-    [ "$2" == "chain=WWjj_ss_pol_hadronic_ll" ] && export GRIDPACK=WWjj_ll_hadronic_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tgz
-    [ "$2" == "chain=WWjj_ss_pol_hadronic_lt" ] && export GRIDPACK=WWjj_lt_hadronic_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tgz
-    [ "$2" == "chain=WWjj_ss_pol_hadronic_tt" ] && export GRIDPACK=WWjj_tt_hadronic_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tgz
+    [ "$2" == "chain=WWjj_ss_pol_hadronic_ll" ] && export GRIDPACK=WWjj_ll_hadronic_slc7_amd64_gcc820_CMSSW_9_3_16_tarball.tgz
+    [ "$2" == "chain=WWjj_ss_pol_hadronic_lt" ] && export GRIDPACK=WWjj_lt_hadronic_slc7_amd64_gcc820_CMSSW_9_3_16_tarball.tgz
+    [ "$2" == "chain=WWjj_ss_pol_hadronic_tt" ] && export GRIDPACK=WWjj_tt_hadronic_slc7_amd64_gcc820_CMSSW_9_3_16_tarball.tgz
     
-    curl --insecure https://amarini.web.cern.ch/amarini/$GRIDPACK --retry 2 -o ./$GRIDPACK
+    curl --insecure https://amarini.web.cern.ch/amarini/gridpack/$GRIDPACK --retry 2 -o ./$GRIDPACK
+
+    file $GRIDPACK
 
     ls -ltr 
 }
