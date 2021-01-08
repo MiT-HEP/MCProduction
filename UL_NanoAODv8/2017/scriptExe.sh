@@ -15,6 +15,8 @@ echo "================= CMSRUN starting jobNum=$1 ====================" | tee -a
 
     file $GRIDPACK
 
+    file $GRIDPACK | grep 'ASCII' && exit 1
+
     ls -ltr 
 }
 

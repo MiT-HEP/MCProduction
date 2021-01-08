@@ -11,6 +11,7 @@ echo "================= CMSRUN starting jobNum=$1 ====================" | tee -a
     curl --insecure https://amarini.web.cern.ch/amarini/gridpack/$GRIDPACK --retry 2 -o ./$GRIDPACK
 
     file $GRIDPACK
+    file $GRIDPACK | grep 'ASCII' && exit 1
 
     ls -ltr 
 }
