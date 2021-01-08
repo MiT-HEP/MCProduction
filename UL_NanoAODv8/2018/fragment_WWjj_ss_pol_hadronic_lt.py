@@ -38,7 +38,7 @@ externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
     scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh'),
     numberOfParameters = cms.uint32(1),
     #args = cms.vstring(os.environ['PWD']+'/'+"WWjj_lt_hadronic_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz")
-    args = cms.vstring(os.environ['PWD']+'/'+"WWjj_lt_hadronic_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tgz")
+    args = cms.vstring(os.environ['PWD']+'/'+"WWjj_lt_hadronic_slc7_amd64_gcc820_CMSSW_9_3_16_tarball.tgz")
 )
 
 
