@@ -18,10 +18,16 @@ echo "================= CMSRUN starting jobNum=$1 ====================" | tee -a
 }
 
 [[ "$2" == "chain=hplusplus"* ]] && {
-    ## copy GRIDPACKS locally and rename them in tgz
-    cp -v /cvmfs/cms.cern.ch/phys_generator/gridpacks/slc6_amd64_gcc481/13TeV/madgraph/V5_2.3.3/DoublyChargedHiggsGMmodel_HWW_M1000/v1/DoublyChargedHiggsGMmodel_HWW_M1000_tarball.tar.xz ./DoublyChargedHiggsGMmodel_HWW_M1000_tarball.tgz
-    cp -v /cvmfs/cms.cern.ch/phys_generator/gridpacks/slc6_amd64_gcc481/13TeV/madgraph/V5_2.3.3/DoublyChargedHiggsGMmodel_HWW_M2000/v1/DoublyChargedHiggsGMmodel_HWW_M2000_tarball.tar.xz ./DoublyChargedHiggsGMmodel_HWW_M2000_tarball.tgz
-    cp -v /cvmfs/cms.cern.ch/phys_generator/gridpacks/slc6_amd64_gcc481/13TeV/madgraph/V5_2.3.3/DoublyChargedHiggsGMmodel_HWW_M1500/v1/DoublyChargedHiggsGMmodel_HWW_M1500_tarball.tar.xz ./DoublyChargedHiggsGMmodel_HWW_M1500_tarball.tgz
+    [ "$2" == "chain=hplusplus_hww_1000" ] && export GRIDPACK=DoublyChargedHiggsGMmodel_HWW_M1000_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz
+    [ "$2" == "chain=hplusplus_hww_1500" ] && export GRIDPACK=DoublyChargedHiggsGMmodel_HWW_M1500_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz
+    [ "$2" == "chain=hplusplus_hww_2000" ] && export GRIDPACK=DoublyChargedHiggsGMmodel_HWW_M2000_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz
+    curl --insecure https://amarini.web.cern.ch/amarini/gridpack/$GRIDPACK --retry 2 -o ./$GRIDPACK
+
+    file $GRIDPACK
+
+    file $GRIDPACK | grep 'ASCII' && exit 1
+
+    ls -ltr 
 }
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
@@ -30,12 +36,6 @@ export SCRAM_ARCH=slc7_amd64_gcc700
 BASE=$PWD
 
 MYCMSSW=CMSSW_10_6_18
-STEP1=step1_cfg.py
-[[ "$2" == "chain=hplusplus"* ]] && { 
-    export SCRAM_ARCH=slc6_amd64_gcc481 
-    MYCMSSW=CMSSW_7_1_26
-    STEP1=step1_71_cfg.py
-}
 [[ "$2" == "chain=hbbg" ]] && export SCRAM_ARCH=slc6_amd64_gcc630
 
     echo "================= CMSRUN setting up $MYCMSSW ===================="| tee -a job.log
@@ -51,7 +51,7 @@ STEP1=step1_cfg.py
 
 
 echo "================= CMSRUN starting Step 1 ====================" | tee -a job.log
-cmsRun -j step1.log $STEP1 jobNum=$1 $2
+cmsRun -j step1.log step1_cfg.py jobNum=$1 $2
 
 
 export SCRAM_ARCH=slc7_amd64_gcc700

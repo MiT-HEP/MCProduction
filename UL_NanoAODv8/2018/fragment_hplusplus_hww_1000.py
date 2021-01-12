@@ -39,5 +39,5 @@ externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
     scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh'),
     numberOfParameters = cms.uint32(1),
     #args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/slc6_amd64_gcc481/13TeV/madgraph/V5_2.3.3/DoublyChargedHiggsGMmodel_HWW_M1000/v1/DoublyChargedHiggsGMmodel_HWW_M1000_tarball.tar.xz'),
-    args = cms.vstring(os.environ['PWD']+'/DoublyChargedHiggsGMmodel_HWW_M1000/v1/DoublyChargedHiggsGMmodel_HWW_M1000_tarball.tgz'),
+    args = cms.vstring(os.environ['PWD']+'/DoublyChargedHiggsGMmodel_HWW_M1000_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz'),
 )
