@@ -17,9 +17,11 @@ echo "================= CMSRUN starting jobNum=$1 ====================" | tee -a
 }
 
 [[ "$2" == "chain=hplusplus"* ]] && {
-    [ "$2" == "chain=hplusplus_hww_1000" ] && export GRIDPACK=DoublyChargedHiggsGMmodel_HWW_M1000_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz
-    [ "$2" == "chain=hplusplus_hww_1500" ] && export GRIDPACK=DoublyChargedHiggsGMmodel_HWW_M1500_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz
-    [ "$2" == "chain=hplusplus_hww_2000" ] && export GRIDPACK=DoublyChargedHiggsGMmodel_HWW_M2000_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz
+    [ "$2" == "chain=hplusplus_hww_1000" ] && export GRIDPACK=DoublyChargedHiggsGMmodel_HWW_M1000_slc7_amd64_gcc700_CMSSW_10_6_0_tarball.tar.xz
+    [ "$2" == "chain=hplusplus_hww_1500" ] && export GRIDPACK=DoublyChargedHiggsGMmodel_HWW_M1500_slc7_amd64_gcc700_CMSSW_10_6_0_tarball.tar.xz
+    [ "$2" == "chain=hplusplus_hww_2000" ] && export GRIDPACK=DoublyChargedHiggsGMmodel_HWW_M2000_slc7_amd64_gcc700_CMSSW_10_6_0_tarball.tar.xz
+    [ "$2" == "chain=hplusplus_hww_3000" ] && export GRIDPACK=DoublyChargedHiggsGMmodel_HWW_M3000_slc7_amd64_gcc700_CMSSW_10_6_0_tarball.tar.xz
+    [ "$2" == "chain=hplusplus_hww_semilep_1000" ] && export GRIDPACK=DoublyChargedHiggsGMmodel_HWW_M1000_slc7_amd64_gcc700_CMSSW_10_6_0_tarball.tar.xz
     curl --insecure https://amarini.web.cern.ch/amarini/gridpack/$GRIDPACK --retry 2 -o ./$GRIDPACK
 
     file $GRIDPACK

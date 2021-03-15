@@ -50,6 +50,10 @@ if do=='hwz2000' :
     config.General.requestName = 'amarini_UL2016_SinglyChargedHiggsGMmodel_HWZ_Znn_M2000_madgraph'
     config.Data.outputPrimaryDataset = 'SinglyChargedHiggsGMmodel_HWZ_Znn_M2000_13TeV-madgraph'
     config.JobType.scriptArgs=['chain=hplus_hwz_2000']
+if do=='hwz3000' :
+    config.General.requestName = 'amarini_UL2016_SinglyChargedHiggsGMmodel_HWZ_Znn_M3000_madgraph'
+    config.Data.outputPrimaryDataset = 'SinglyChargedHiggsGMmodel_HWZ_Znn_M3000_13TeV-madgraph'
+    config.JobType.scriptArgs=['chain=hplus_hwz_3000']
 if do=='hww1500' :
     config.General.requestName = 'amarini_UL2016_DoublyChargedHiggsGMmodel_HWW_M1500_13TeV-madgraph'
     config.Data.outputPrimaryDataset = 'DoublyChargedHiggsGMmodel_HWW_M1500_13TeV-madgraph'
@@ -62,6 +66,10 @@ if do=='hww2000' :
     config.General.requestName = 'amarini_UL2016_DoublyChargedHiggsGMmodel_HWW_M2000_13TeV-madgraph'
     config.Data.outputPrimaryDataset = 'DoublyChargedHiggsGMmodel_HWW_M2000_13TeV-madgraph'
     config.JobType.scriptArgs=['chain=hplusplus_hww_2000']
+if do=='hww3000' :
+    config.General.requestName = 'amarini_UL2016_DoublyChargedHiggsGMmodel_HWW_M3000_13TeV-madgraph'
+    config.Data.outputPrimaryDataset = 'DoublyChargedHiggsGMmodel_HWW_M3000_13TeV-madgraph'
+    config.JobType.scriptArgs=['chain=hplusplus_hww_3000']
 if do=='hwz_zbb_1500' :
     config.General.requestName = 'amarini_UL2016_SinglyChargedHiggsGMmodel_HWZ_Zbb_M1500_madgraph'
     config.Data.outputPrimaryDataset = 'SinglyChargedHiggsGMmodel_HWZ_Zbb_M1500_13TeV-madgraph'
@@ -74,6 +82,10 @@ if do=='hwz_zbb_2000' :
     config.General.requestName = 'amarini_UL2016_SinglyChargedHiggsGMmodel_HWZ_Zbb_M2000_madgraph'
     config.Data.outputPrimaryDataset = 'SinglyChargedHiggsGMmodel_HWZ_Zbb_M2000_13TeV-madgraph'
     config.JobType.scriptArgs=['chain=hplus_hwz_zbb_2000']
+if do=='hwz_zbb_3000' :
+    config.General.requestName = 'amarini_UL2016_SinglyChargedHiggsGMmodel_HWZ_Zbb_M3000_madgraph'
+    config.Data.outputPrimaryDataset = 'SinglyChargedHiggsGMmodel_HWZ_Zbb_M3000_13TeV-madgraph'
+    config.JobType.scriptArgs=['chain=hplus_hwz_zbb_3000']
 if do=='WWjj_ss_pol_hadronic_ll' :
     config.General.requestName = 'amarini_UL2016_WWjj_SS_ll_hadronic'
     config.Data.outputPrimaryDataset = 'WWjj_SS_ll_hadronic'
@@ -86,6 +98,10 @@ if do=='WWjj_ss_pol_hadronic_tt' :
     config.General.requestName = 'amarini_UL2016_WWjj_SS_tt_hadronic'
     config.Data.outputPrimaryDataset = 'WWjj_SS_tt_hadronic'
     config.JobType.scriptArgs=['chain=WWjj_ss_pol_hadronic_tt']
+if do=='hww1000_semilep' :
+    config.General.requestName = 'amarini_UL2016_DoublyChargedHiggsGMmodel_HWW_semilep_M1000_13TeV-madgraph'
+    config.Data.outputPrimaryDataset = 'DoublyChargedHiggsGMmodel_HWW_semilep_M1000_13TeV-madgraph'
+    config.JobType.scriptArgs=['chain=hplusplus_hww_semilep_1000']
 
 #SinglyChargedHiggsGMmodel_HWZ_Zbb_M1500_13TeV-madgraph
 #

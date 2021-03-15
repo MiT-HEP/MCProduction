@@ -23,7 +23,14 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
             'MultipartonInteractions:expPow=1.6'),
         processParameters = cms.vstring(
                                         '24:onMode = off', 
-                                        '24:onIfAny = 1 2 3 4 5'
+                                        '24:onIfAny = 1 2 3 4 5 11 13 15',
+                                        'ResonanceDecayFilter:filter = on',
+ 						                'ResonanceDecayFilter:exclusive = off', #off: require at least the specified number of daughters, on: require exactly the specified number of daughters
+    									'ResonanceDecayFilter:eMuTauAsEquivalent = on',  #on: treat electrons, muons , and taus as equivalent
+										'ResonanceDecayFilter:allNuAsEquivalent  = on',  #on: treat all three neutrino flavours as equivalent
+                    					'ResonanceDecayFilter:udscbAsEquivalent  = on', #on: treat u,d,s,c,b quarks as equivalent
+										'ResonanceDecayFilter:mothers = 24',
+                                        'ResonanceDecayFilter:daughters = 11,1', #Require one quark decay and one leptonic decay
                                         ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CUEP8M1Settings',
@@ -38,6 +45,6 @@ externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
     outputFile = cms.string('cmsgrid_final.lhe'),
     scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh'),
     numberOfParameters = cms.uint32(1),
-    #args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/slc6_amd64_gcc481/13TeV/madgraph/V5_2.3.3/DoublyChargedHiggsGMmodel_HWW_M2000/v1/DoublyChargedHiggsGMmodel_HWW_M2000_tarball.tar.xz'),
-    args = cms.vstring(os.environ['PWD']+'/DoublyChargedHiggsGMmodel_HWW_M2000_slc7_amd64_gcc700_CMSSW_10_6_0_tarball.tar.xz'),
+    #args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/slc6_amd64_gcc481/13TeV/madgraph/V5_2.3.3/DoublyChargedHiggsGMmodel_HWW_M1000/v1/DoublyChargedHiggsGMmodel_HWW_M1000_tarball.tar.xz'),
+    args = cms.vstring(os.environ['PWD']+'/DoublyChargedHiggsGMmodel_HWW_M1000_slc7_amd64_gcc700_CMSSW_10_6_0_tarball.tar.xz'),
 )
