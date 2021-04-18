@@ -33,6 +33,15 @@ echo "================= CMSRUN starting jobNum=$1 ====================" | tee -a
     ls -ltr 
 }
 
+[[ "$2" == "chain=vbs_hbb_wpmjj_"* ]] && {
+    [ "$2" == "chain=vbs_hbb_wpmjj_ewk" ] && export GRIDPACK=HBBWPMJJjj_EWK_LO_slc7_amd64_gcc700_CMSSW_10_6_0_tarball.tar.xz
+    [ "$2" == "chain=vbs_hbb_wpmjj_qcd" ] && export GRIDPACK=HBBWPMJJjj_QCD_LO_slc7_amd64_gcc700_CMSSW_10_6_0_tarball.tar.xz
+    curl --insecure https://amarini.web.cern.ch/amarini/gridpack/$GRIDPACK --retry 2 -o ./$GRIDPACK
+    file $GRIDPACK
+    file $GRIDPACK | grep 'ASCII' && exit 1
+    ls -ltr 
+}
+
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 export SCRAM_ARCH=slc7_amd64_gcc700
 

@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
-
+import os
 externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
-    args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/slc6_amd64_gcc630/13TeV/madgraph/V5_2.6.5/VBSHadronic/ZJJZJJjj_EWK_QCD_LO_slc6_amd64_gcc630_CMSSW_9_3_16_tarball.tar.xz'),
+    args = cms.vstring(os.environ['PWD']+'/HBBWPMJJjj_EWK_LO_slc7_amd64_gcc700_CMSSW_10_6_0_tarball.tar.xz'),
     nEvents = cms.untracked.uint32(500),
     numberOfParameters = cms.uint32(1),
     outputFile = cms.string('cmsgrid_final.lhe'),
@@ -22,7 +22,11 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         pythia8CommonSettingsBlock,
         pythia8CP5SettingsBlock,
         pythia8PSweightsSettingsBlock,
-        processParameters=cms.vstring('SpaceShower:dipoleRecoil = on'  ),
+        processParameters=cms.vstring(
+            'SpaceShower:dipoleRecoil = on'  ,
+            '25:onMode = off',
+            '25:onIfMatch = 5 -5',
+            ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CP5Settings',
                                     'pythia8PSweightsSettings',

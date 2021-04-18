@@ -170,6 +170,15 @@ if do=='vbs_znn_wpmjj_ewk_qcd':
     config.Data.outputPrimaryDataset = 'ZNuNuWPMJJjj_EWK_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
     config.JobType.scriptArgs=['chain='+do]
 
+if do=='vbs_hbb_wpmjj_ewk':
+    config.General.requestName = 'amarini_UL2016_HBBWPMJJjj_EWK_LO_TuneCP5_13TeV-madgraph-pythia8'
+    config.Data.outputPrimaryDataset = 'HBBWPMJJjj_EWK_LO_TuneCP5_13TeV-madgraph-pythia8'
+    config.JobType.scriptArgs=['chain='+do]
+if do=='vbs_hbb_wpmjj_qcd':
+    config.General.requestName = 'amarini_UL2016_HBBWPMJJjj_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
+    config.Data.outputPrimaryDataset = 'HBBWPMJJjj_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
+    config.JobType.scriptArgs=['chain='+do]
+
 #SinglyChargedHiggsGMmodel_HWZ_Zbb_M1500_13TeV-madgraph
 #
 #WWjj_SS_ll_hadronic

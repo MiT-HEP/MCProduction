@@ -6,6 +6,7 @@
 LIST="vbs_wpjj_wmjj_ewk vbs_wpmjj_wpmjj_ewk vbs_zbb_wpmjj_ewk vbs_zjj_zjj_ewk vbs_znn_wpmjj_ewk"
 LIST+=" vbs_wpjj_wmjj_qcd vbs_wpmjj_wpmjj_qcd vbs_zbb_wpmjj_qcd vbs_zjj_zjj_qcd vbs_znn_wpmjj_qcd"
 LIST+=" vbs_wpjj_wmjj_ewk_qcd vbs_wpmjj_wpmjj_ewk_qcd vbs_zbb_wpmjj_ewk_qcd vbs_zjj_zjj_ewk_qcd vbs_znn_wpmjj_ewk_qcd"
+LIST+=" vbs_hbb_wpmjj_ewk vbs_hbb_wpmjj_qcd"
 
 for year in 2016 2017 2018; do
     echo "->Doing year $year"
