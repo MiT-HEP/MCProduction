@@ -1,12 +1,13 @@
 #!/bin/bash
 echo "================= CMSRUN starting jobNum=$1 ====================" | tee -a job.log
 
-[[ "$2" == "chain=WWjj_ss_pol_hadronic"* ]] && {
+#[[ "$2" == "chain=WWjj_ss_pol_hadronic"* ]]
+[[ "$2" == "chain=vbs_zjj_zjj_ewk"* ]] && {
     echo "================= CURL GRIDPACK ===================="| tee -a job.log
     
-    [ "$2" == "chain=WWjj_ss_pol_hadronic_ll" ] && export GRIDPACK=WWjj_ll_hadronic_slc7_amd64_gcc820_CMSSW_9_3_16_tarball.tgz
-    [ "$2" == "chain=WWjj_ss_pol_hadronic_lt" ] && export GRIDPACK=WWjj_lt_hadronic_slc7_amd64_gcc820_CMSSW_9_3_16_tarball.tgz
-    [ "$2" == "chain=WWjj_ss_pol_hadronic_tt" ] && export GRIDPACK=WWjj_tt_hadronic_slc7_amd64_gcc820_CMSSW_9_3_16_tarball.tgz
+    #[ "$2" == "chain=WWjj_ss_pol_hadronic_ll" ] && export GRIDPACK=WWjj_ll_hadronic_slc7_amd64_gcc820_CMSSW_9_3_16_tarball.tgz
+    #[ "$2" == "chain=WWjj_ss_pol_hadronic_lt" ] && export GRIDPACK=WWjj_lt_hadronic_slc7_amd64_gcc820_CMSSW_9_3_16_tarball.tgz
+    #[ "$2" == "chain=WWjj_ss_pol_hadronic_tt" ] && export GRIDPACK=WWjj_tt_hadronic_slc7_amd64_gcc820_CMSSW_9_3_16_tarball.tgz
 
     [ "$2" == "chain=vbs_zjj_zjj_ewk" ] && export GRIDPACK=ZJJZJJjj_EWK_LO_slc7_amd64_gcc700_CMSSW_10_6_19_tarball.tar.xz
     
