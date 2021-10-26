@@ -89,6 +89,9 @@ process.GlobalTag = GlobalTag(process.GlobalTag, '106X_mcRun2_asymptotic_preVFP_
 print ("Loading chain",options.chain)
 process.load("fragment_"+ options.chain)
 
+if not hasattr(process,"ProductionFilterSequence"):
+    print "> Using no filters"
+    process.ProductionFilterSequence = cms.Sequence(process.generator)
 
 
 # Path and EndPath definitions
@@ -106,7 +109,7 @@ associatePatAlgosToolsTask(process)
 # filter all path with the production filter sequence
 for path in process.paths:
 	if path in ['lhe_step']: continue
-	getattr(process,path).insert(0, process.generator)
+	getattr(process,path).insert(0, process.ProductionFilterSequence)
 
 # customisation of the process.
 

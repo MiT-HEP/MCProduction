@@ -90,7 +90,9 @@ print ("Loading chain",options.chain)
 process.load("fragment_"+ options.chain)
 #process.externalLHEProducer.args =  cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/2017/13TeV/powheg/V2/gg_H_quark-mass-effects_NNPDF31_13TeV_M125/v1/gg_H_quark-mass-effects_NNPDF31_13TeV_M125_slc6_amd64_gcc630_CMSSW_9_3_0.tgz'),
 
-process.ProductionFilterSequence = cms.Sequence(process.generator)
+if not hasattr(process,"ProductionFilterSequence"):
+    print "> Using no filters"
+    process.ProductionFilterSequence = cms.Sequence(process.generator)
 
 # Path and EndPath definitions
 process.lhe_step = cms.Path(process.externalLHEProducer)

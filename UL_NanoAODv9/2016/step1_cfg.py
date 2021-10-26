@@ -91,6 +91,9 @@ process.load("fragment_"+ options.chain)
 
 #process.externalLHEProducer.args =  cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/2017/13TeV/powheg/V2/gg_H_quark-mass-effects_NNPDF31_13TeV_M125/v1/gg_H_quark-mass-effects_NNPDF31_13TeV_M125_slc6_amd64_gcc630_CMSSW_9_3_0.tgz'),
 
+if not hasattr(process,"ProductionFilterSequence"):
+    print "> Using no filters"
+    process.ProductionFilterSequence = cms.Sequence(process.generator)
 
 # Path and EndPath definitions
 process.lhe_step = cms.Path(process.externalLHEProducer)
@@ -107,7 +110,7 @@ associatePatAlgosToolsTask(process)
 # filter all path with the production filter sequence
 for path in process.paths:
 	if path in ['lhe_step']: continue
-	getattr(process,path).insert(0, process.generator)
+	getattr(process,path).insert(0, process.ProductionFilterSequence)
 
 # customisation of the process.
 

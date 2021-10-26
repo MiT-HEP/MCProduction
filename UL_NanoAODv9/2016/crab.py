@@ -179,6 +179,34 @@ if do=='vbs_hbb_wpmjj_qcd':
     config.Data.outputPrimaryDataset = 'HBBWPMJJjj_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
     config.JobType.scriptArgs=['chain='+do]
 
+htarray=[ "100","200","300","500","700","1000","1500","2000","Inf"]
+for iht in xrange(0,len(htarray)-1):
+    ht=htarray[iht]
+    htn=htarray[iht+1]
+    if do=='qcd_ht_'+ht+'_'+htn+'_bfilter':
+        config.General.requestName = 'amarini_UL2016_QCD_HT'+ht+'to'+htn+'_BGenFilter_TuneCP5_13TeV-madgraph-pythia8'
+        config.Data.outputPrimaryDataset = 'QCD_HT'+ht+'to'+htn+'_BGenFilter_TuneCP5_13TeV-madgraph-pythia8'
+        config.JobType.scriptArgs=['chain='+do]
+
+if do.startswith("mssm_gghhmm"):
+    import re
+    #"mssm_hmm_ma1000_tb10"
+    ma=re.sub('ma','',do.split("_")[2])
+    tb=re.sub('tb','',do.split("_")[3])
+    config.Data.totalUnits = 10000
+    config.General.requestName = 'amarini_UL2016_'+ 'MSSMGluGluToHToMuMu_MA-'+ma+'_Tanb-'+tb+'_TuneCP5_13TeV-powheg-pythia8'
+    config.Data.outputPrimaryDataset = 'MSSMGluGluToHToMuMu_MA-'+ma+'_Tanb-'+tb+'_TuneCP5_13TeV-powheg-pythia8'
+    config.JobType.scriptArgs=['chain='+do]
+
+if do.startswith("mssm_ggahmm"):
+    import re
+    ma=re.sub('ma','',do.split("_")[2])
+    tb=re.sub('tb','',do.split("_")[3])
+    config.Data.totalUnits = 10000
+    config.General.requestName = 'amarini_UL2016_'+ 'MSSMGluGluToAToMuMu_MA-'+ma+'_Tanb-'+tb+'_TuneCP5_13TeV-powheg-pythia8'
+    config.Data.outputPrimaryDataset = 'MSSMGluGluToAToMuMu_MA-'+ma+'_Tanb-'+tb+'_TuneCP5_13TeV-powheg-pythia8'
+    config.JobType.scriptArgs=['chain='+do]
+
 #SinglyChargedHiggsGMmodel_HWZ_Zbb_M1500_13TeV-madgraph
 #
 #WWjj_SS_ll_hadronic

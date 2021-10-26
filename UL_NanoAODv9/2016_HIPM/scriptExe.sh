@@ -1,6 +1,7 @@
 #!/bin/bash
 echo "================= CMSRUN starting jobNum=$1 ====================" | tee -a job.log
 
+chain="$2"
 #[[ "$2" == "chain=WWjj_ss_pol_hadronic"* ]] && 
 [[ "$2" == "chain=vbs_zjj_zjj_ewk"* ]] && {
     echo "================= CURL GRIDPACK ===================="| tee -a job.log
@@ -18,6 +19,24 @@ echo "================= CMSRUN starting jobNum=$1 ====================" | tee -a
     file $GRIDPACK | grep 'ASCII' && exit 1
 
     ls -ltr 
+}
+
+[[ "$2" == "chain=mssm_gghhmm"* ]] && {
+    chain="chain=mssm_gghhmm"    
+    ma=$(echo -n "$2" | cut -d '_' -f 3 | sed 's:ma::g')
+    tb=$(echo -n "$2" | cut -d '_' -f 4 | sed 's:tb::g')
+    echo "> Configuring chain MA=$ma TB=$tb" 
+    sed -i'' "s:^ma=None:ma='$ma':" fragment_mssm_gghhmm.py
+    sed -i'' "s:^tb=None:tb='$tb':" fragment_mssm_gghhmm.py
+}
+
+[[ "$2" == "chain=mssm_ggahmm"* ]] && {
+    chain="chain=mssm_ggahmm"    
+    ma=$(echo -n "$2" | cut -d '_' -f 3 | sed 's:ma::g')
+    tb=$(echo -n "$2" | cut -d '_' -f 4 | sed 's:tb::g')
+    echo "> Configuring chain MA=$ma TB=$tb" 
+    sed -i'' "s:^ma=None:ma='$ma':" fragment_mssm_ggahmm.py
+    sed -i'' "s:^tb=None:tb='$tb':" fragment_mssm_ggahmm.py
 }
 
 
@@ -40,7 +59,7 @@ MYCMSSW=CMSSW_10_6_19_patch2
 
 
 echo "================= CMSRUN starting Step 1 ====================" | tee -a job.log
-cmsRun -j step1.log step1_cfg.py jobNum=$1 $2
+cmsRun -j step1.log step1_cfg.py jobNum=$1 $chain
 
 MYCMSSW=CMSSW_10_6_19_patch2
     echo "================= CMSRUN setting up $MYCMSSW ===================="| tee -a job.log
