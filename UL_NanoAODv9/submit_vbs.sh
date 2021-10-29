@@ -14,7 +14,7 @@ done
 
 echo Submitting $LIST for all production years
 #exit 0
-PARALLEL="parallel --semaphore --semaphorename crsub -j 15 "
+PARALLEL="parallel --semaphore --semaphorename crsub -j 5 "
 
 for year in 2016 2016_HIPM 2017 2018; do
     echo "->Doing year $year"

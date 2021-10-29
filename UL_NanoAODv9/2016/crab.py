@@ -176,9 +176,9 @@ if do.startswith('vbs_'):
     p2=do.split('_')[2]
     ewk=do.split('_')[3:]
     madspin=''
-    if p1+"_"+p2 = 'wpjj_wmjj':    madspin='-madspin'
-    if p1+"_"+p2 = 'wpmjj_wpmjj':  madspin='-madspin'
-    if p1+"_"+p2 = 'zjjnob_wpmjj': madspin='-madspin'
+    if p1+"_"+p2 == 'wpjj_wmjj':    madspin='-madspin'
+    if p1+"_"+p2 == 'wpmjj_wpmjj':  madspin='-madspin'
+    if p1+"_"+p2 == 'zjjnob_wpmjj': madspin='-madspin'
 
     config.Data.outputPrimaryDataset = p1.upper()+p2.upper()+'jj_'+ewk.upper()+'_LO_TuneCP5_13TeV-madgraph'+madspin+'-pythia8'
     config.General.requestName = 'amarini_UL2016_'+ config.Data.outputPrimaryDataset
