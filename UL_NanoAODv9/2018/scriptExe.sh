@@ -3,17 +3,19 @@ echo "================= CMSRUN starting jobNum=$1 ====================" | tee -a
 
 chain="$2"
 
-[[ "$2" == "chain=vbs_zjj_zjj_ewk"* ]] && {
-    echo "================= CURL GRIDPACK ===================="| tee -a job.log
-    
-    #[ "$2" == "chain=WWjj_ss_pol_hadronic_ll" ] && export GRIDPACK=WWjj_ll_hadronic_slc7_amd64_gcc820_CMSSW_9_3_16_tarball.tgz
-    #[ "$2" == "chain=WWjj_ss_pol_hadronic_lt" ] && export GRIDPACK=WWjj_lt_hadronic_slc7_amd64_gcc820_CMSSW_9_3_16_tarball.tgz
-    #[ "$2" == "chain=WWjj_ss_pol_hadronic_tt" ] && export GRIDPACK=WWjj_tt_hadronic_slc7_amd64_gcc820_CMSSW_9_3_16_tarball.tgz
+[[ "$2" == "chain=vbs_*" ]] && {
 
-    [ "$2" == "chain=vbs_zjj_zjj_ewk" ] && export GRIDPACK=ZJJZJJjj_EWK_LO_slc7_amd64_gcc700_CMSSW_10_6_19_tarball.tar.xz
+    a1=$(echo -n "$2" | cut -d '_' -f 2 )
+    a2=$(echo -n "$2" | cut -d '_' -f 3 )
+    a3=$(echo -n "$2" | cut -d '_' -f 4,5 )
     
+    p1=$( echo $a1 | tr [:lower:] [:upper:] | sed 's:NOB:noB:g' | sed 's:NU:Nu:g')
+    p2=$( echo $a2 | tr [:lower:] [:upper:] | sed 's:NOB:noB:g' | sed 's:NU:Nu:g')
+    p3=$( echo $a3 | tr [:lower:] [:upper:] | sed 's:NOB:noB:g' | sed 's:NU:Nu:g')
+
+    export GRIDPACK=${p1}${p2}jj_${p3}_LO_slc7_amd64_gcc700_CMSSW_10_6_19_tarball.tar.xz
+    chain='chain=vbs_all' ## will use the gridpack variable
     curl --insecure https://amarini.web.cern.ch/amarini/gridpack/$GRIDPACK --retry 2 -o ./$GRIDPACK
-
     file $GRIDPACK
 
     file $GRIDPACK | grep 'ASCII' && exit 1

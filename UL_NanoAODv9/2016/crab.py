@@ -107,69 +107,6 @@ if do=='hww2000_semilep' :
     config.Data.outputPrimaryDataset = 'DoublyChargedHiggsGMmodel_HWW_semilep_M2000_13TeV-madgraph'
     config.JobType.scriptArgs=['chain=hplusplus_hww_semilep_2000']
 
-if do=='vbs_wpjj_wmjj_ewk':
-    config.General.requestName = 'amarini_UL2016_WPJJWMJJjj_EWK_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.Data.outputPrimaryDataset = 'WPJJWMJJjj_EWK_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.JobType.scriptArgs=['chain='+do]
-if do=='vbs_wpmjj_wpmjj_ewk':
-    config.General.requestName = 'amarini_UL2016_WPMJJWPMJJjj_EWK_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.Data.outputPrimaryDataset = 'WPMJJWPMJJjj_EWK_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.JobType.scriptArgs=['chain='+do]
-if do=='vbs_zbb_wpmjj_ewk':
-    config.General.requestName = 'amarini_UL2016_ZBBWPMJJjj_EWK_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.Data.outputPrimaryDataset = 'ZBBWPMJJjj_EWK_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.JobType.scriptArgs=['chain='+do]
-if do=='vbs_zjj_zjj_ewk':
-    config.General.requestName = 'amarini_UL2016_ZJJZJJjj_EWK_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.Data.outputPrimaryDataset = 'ZJJZJJjj_EWK_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.JobType.scriptArgs=['chain='+do]
-if do=='vbs_znn_wpmjj_ewk':
-    config.General.requestName = 'amarini_UL2016_ZNuNuWPMJJjj_EWK_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.Data.outputPrimaryDataset = 'ZNuNuWPMJJjj_EWK_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.JobType.scriptArgs=['chain='+do]
-
-if do=='vbs_wpjj_wmjj_qcd':
-    config.General.requestName = 'amarini_UL2016_WPJJWMJJjj_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.Data.outputPrimaryDataset = 'WPJJWMJJjj_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.JobType.scriptArgs=['chain='+do]
-if do=='vbs_wpmjj_wpmjj_qcd':
-    config.General.requestName = 'amarini_UL2016_WPMJJWPMJJjj_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.Data.outputPrimaryDataset = 'WPMJJWPMJJjj_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.JobType.scriptArgs=['chain='+do]
-if do=='vbs_zbb_wpmjj_qcd':
-    config.General.requestName = 'amarini_UL2016_ZBBWPMJJjj_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.Data.outputPrimaryDataset = 'ZBBWPMJJjj_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.JobType.scriptArgs=['chain='+do]
-if do=='vbs_zjj_zjj_qcd':
-    config.General.requestName = 'amarini_UL2016_ZJJZJJjj_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.Data.outputPrimaryDataset = 'ZJJZJJjj_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.JobType.scriptArgs=['chain='+do]
-if do=='vbs_znn_wpmjj_qcd':
-    config.General.requestName = 'amarini_UL2016_ZNuNuWPMJJjj_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.Data.outputPrimaryDataset = 'ZNuNuWPMJJjj_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.JobType.scriptArgs=['chain='+do]
-
-if do=='vbs_wpjj_wmjj_ewk_qcd':
-    config.General.requestName = 'amarini_UL2016_WPJJWMJJjj_EWK_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.Data.outputPrimaryDataset = 'WPJJWMJJjj_EWK_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.JobType.scriptArgs=['chain='+do]
-if do=='vbs_wpmjj_wpmjj_ewk_qcd':
-    config.General.requestName = 'amarini_UL2016_WPMJJWPMJJjj_EWK_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.Data.outputPrimaryDataset = 'WPMJJWPMJJjj_EWK_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.JobType.scriptArgs=['chain='+do]
-if do=='vbs_zbb_wpmjj_ewk_qcd':
-    config.General.requestName = 'amarini_UL2016_ZBBWPMJJjj_EWK_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.Data.outputPrimaryDataset = 'ZBBWPMJJjj_EWK_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.JobType.scriptArgs=['chain='+do]
-if do=='vbs_zjj_zjj_ewk_qcd':
-    config.General.requestName = 'amarini_UL2016_ZJJZJJjj_EWK_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.Data.outputPrimaryDataset = 'ZJJZJJjj_EWK_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.JobType.scriptArgs=['chain='+do]
-if do=='vbs_znn_wpmjj_ewk_qcd':
-    config.General.requestName = 'amarini_UL2016_ZNuNuWPMJJjj_EWK_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.Data.outputPrimaryDataset = 'ZNuNuWPMJJjj_EWK_QCD_LO_TuneCP5_13TeV-madgraph-pythia8'
-    config.JobType.scriptArgs=['chain='+do]
-
 if do=='vbs_hbb_wpmjj_ewk':
     config.General.requestName = 'amarini_UL2016_HBBWPMJJjj_EWK_LO_TuneCP5_13TeV-madgraph-pythia8'
     config.Data.outputPrimaryDataset = 'HBBWPMJJjj_EWK_LO_TuneCP5_13TeV-madgraph-pythia8'
@@ -223,6 +160,28 @@ if do.startswith("mssm_bbahmm"):
     config.Data.totalUnits = 10000
     config.General.requestName = 'amarini_UL2016_'+ 'MSSMBBToAToMuMu_MA-'+ma+'_Tanb-'+tb+'_TuneCP5_13TeV-powheg-pythia8'
     config.Data.outputPrimaryDataset = 'MSSMBBToAToMuMu_MA-'+ma+'_Tanb-'+tb+'_TuneCP5_13TeV-powheg-pythia8'
+    config.JobType.scriptArgs=['chain='+do]
+
+## wpjj_wmjj_{ewk,qcd,ewk_qcd}
+## wpmjj_wpmjj
+## zbb_wpmjj
+## zjjnob_wpmjj
+## zjjzjj
+## znunu_wpmjj
+## znunu_zjj
+
+if do.startswith('vbs_'):
+    import re
+    p1=do.split('_')[1]
+    p2=do.split('_')[2]
+    ewk=do.split('_')[3:]
+    madspin=''
+    if p1+"_"+p2 = 'wpjj_wmjj':    madspin='-madspin'
+    if p1+"_"+p2 = 'wpmjj_wpmjj':  madspin='-madspin'
+    if p1+"_"+p2 = 'zjjnob_wpmjj': madspin='-madspin'
+
+    config.Data.outputPrimaryDataset = p1.upper()+p2.upper()+'jj_'+ewk.upper()+'_LO_TuneCP5_13TeV-madgraph'+madspin+'-pythia8'
+    config.General.requestName = 'amarini_UL2016_'+ config.Data.outputPrimaryDataset
     config.JobType.scriptArgs=['chain='+do]
 
 #SinglyChargedHiggsGMmodel_HWZ_Zbb_M1500_13TeV-madgraph
