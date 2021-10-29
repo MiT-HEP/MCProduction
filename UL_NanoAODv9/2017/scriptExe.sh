@@ -1,10 +1,11 @@
 #!/bin/bash
 echo "================= CMSRUN starting jobNum=$1 ====================" | tee -a job.log
+echo " >> Options $2"
 
 chain="$2"
 
-[[ "$2" == "chain=vbs_*" ]] && {
-
+[[ "$2" == "chain=vbs_"* ]] && {
+    echo "> VBS Configuration"
     a1=$(echo -n "$2" | cut -d '_' -f 2 )
     a2=$(echo -n "$2" | cut -d '_' -f 3 )
     a3=$(echo -n "$2" | cut -d '_' -f 4,5 )
@@ -15,6 +16,7 @@ chain="$2"
 
     export GRIDPACK=${p1}${p2}jj_${p3}_LO_slc7_amd64_gcc700_CMSSW_10_6_19_tarball.tar.xz
     chain='chain=vbs_all' ## will use the gridpack variable
+    echo "> chain is ${chain}"
     curl --insecure https://amarini.web.cern.ch/amarini/gridpack/$GRIDPACK --retry 2 -o ./$GRIDPACK
     file $GRIDPACK
 

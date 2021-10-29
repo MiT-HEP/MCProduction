@@ -164,7 +164,7 @@ if do.startswith('vbs_'):
     import re
     p1=do.split('_')[1]
     p2=do.split('_')[2]
-    ewk=do.split('_')[3:]
+    ewk='_'.join(do.split('_')[3:])
     madspin=''
     if p1+"_"+p2 == 'wpjj_wmjj':    madspin='-madspin'
     if p1+"_"+p2 == 'wpmjj_wpmjj':  madspin='-madspin'
