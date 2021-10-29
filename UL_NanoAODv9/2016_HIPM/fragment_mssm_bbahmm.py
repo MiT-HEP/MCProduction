@@ -2,14 +2,14 @@
 import FWCore.ParameterSet.Config as cms
 
 # link to cards:
-# https://github.com/cms-sw/genproductions/tree/master/bin/Powheg/production/2017/13TeV/Higgs/MSSM/ggA_MuMu_NNPDF31_13TeV
+# https://github.com/cms-sw/genproductions/tree/master/bin/Powheg/production/2017/13TeV/Higgs/MSSM/bbA_MuMu_NNPDF31_13TeV
 
 ma=None
 tb=None
 print "> Loading Configuration for MA",ma,"TB",tb
 
 externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
-    args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/UL/13TeV/powheg/V2/slc7_amd64_gcc700_CMSSW_10_6_19_MSSMGluGluToAToMuMu_ma'+ma+'_tb'+tb+'/v1/slc7_amd64_gcc700_CMSSW_10_6_19_MSSMGluGluToAToMuMu_ma'+ma+'_tb'+tb+'.tgz'),
+    args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/UL/13TeV/powheg/V2/slc7_amd64_gcc700_CMSSW_10_6_19_MSSMGluGluToBBAToMuMu_ma'+ma+'_tb'+tb+'/v1/slc7_amd64_gcc700_CMSSW_10_6_19_MSSMGluGluToBBAToMuMu_ma'+ma+'_tb'+tb+'.tgz'),
     nEvents = cms.untracked.uint32(500),
     numberOfParameters = cms.uint32(1),
     outputFile = cms.string('cmsgrid_final.lhe'),
@@ -29,25 +29,27 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
                          pythiaHepMCVerbosity = cms.untracked.bool(False),
                          comEnergy = cms.double(13000.),
                          PythiaParameters = cms.PSet(
-        pythia8CommonSettingsBlock,
-        pythia8CP5SettingsBlock,
-        pythia8PowhegEmissionVetoSettingsBlock,
-        pythia8PSweightsSettingsBlock,
-        processParameters = cms.vstring(
-                                                                                                                                                                                                       
-    'Higgs:useBSM = on',
-    'POWHEG:nFinal = 1',
-    '35:onMode = off', # turn OFF all H decays
-    '35:onIfMatch = 13 -13', # turn ON H->tautau
+                            pythia8CommonSettingsBlock,
+                            pythia8CP5SettingsBlock,
+                            pythia8PowhegEmissionVetoSettingsBlock,
+                            pythia8PSweightsSettingsBlock,
+                            processParameters = cms.vstring(
+                                                                                                                                                                                                                           
+    'POWHEG:nFinal = 3',
+    'SLHA:useDecayTable = off',
+    '25:m0 = 300.0',
+    '25:mWidth = 1.22206997871',
+    '25:onMode = off',
+    '25:onIfMatch = 13 -13',
 
-            ),
-        parameterSets = cms.vstring('pythia8CommonSettings',
+                                ),
+                            parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CP5Settings',
                                     'pythia8PowhegEmissionVetoSettings',
                                     'pythia8PSweightsSettings',
-                                    'processParameters'
+                                    'processParameters',
                                     )
-        )
+                            )
                          )
                          
 ProductionFilterSequence = cms.Sequence(generator)

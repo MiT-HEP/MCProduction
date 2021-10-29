@@ -208,3 +208,20 @@ if do.startswith("mssm_ggahmm"):
     config.Data.outputPrimaryDataset = 'MSSMGluGluToAToMuMu_MA-'+ma+'_Tanb-'+tb+'_TuneCP5_13TeV-powheg-pythia8'
     config.JobType.scriptArgs=['chain='+do]
 
+if do.startswith("mssm_bbhhmm"):
+    import re
+    ma=re.sub('ma','',do.split("_")[2])
+    tb=re.sub('tb','',do.split("_")[3])
+    config.Data.totalUnits = 10000
+    config.General.requestName = 'amarini_UL2017_'+ 'MSSMBBToHToMuMu_MA-'+ma+'_Tanb-'+tb+'_TuneCP5_13TeV-powheg-pythia8'
+    config.Data.outputPrimaryDataset = 'MSSMBBToHToMuMu_MA-'+ma+'_Tanb-'+tb+'_TuneCP5_13TeV-powheg-pythia8'
+    config.JobType.scriptArgs=['chain='+do]
+
+if do.startswith("mssm_bbahmm"):
+    import re
+    ma=re.sub('ma','',do.split("_")[2])
+    tb=re.sub('tb','',do.split("_")[3])
+    config.Data.totalUnits = 10000
+    config.General.requestName = 'amarini_UL2017_'+ 'MSSMBBToAToMuMu_MA-'+ma+'_Tanb-'+tb+'_TuneCP5_13TeV-powheg-pythia8'
+    config.Data.outputPrimaryDataset = 'MSSMBBToAToMuMu_MA-'+ma+'_Tanb-'+tb+'_TuneCP5_13TeV-powheg-pythia8'
+    config.JobType.scriptArgs=['chain='+do]

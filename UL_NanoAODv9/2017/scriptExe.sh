@@ -38,6 +38,23 @@ chain="$2"
     sed -i'' "s:^tb=None:tb='$tb':" fragment_mssm_ggahmm.py
 }
 
+[[ "$2" == "chain=mssm_bbahmm"* ]] && {
+    chain="chain=mssm_bbahmm"    
+    ma=$(echo -n "$2" | cut -d '_' -f 3 | sed 's:ma::g')
+    tb=$(echo -n "$2" | cut -d '_' -f 4 | sed 's:tb::g')
+    echo "> Configuring chain MA=$ma TB=$tb" 
+    sed -i'' "s:^ma=None:ma='$ma':" fragment_mssm_bbahmm.py
+    sed -i'' "s:^tb=None:tb='$tb':" fragment_mssm_bbahmm.py
+}
+
+[[ "$2" == "chain=mssm_bbhhmm"* ]] && {
+    chain="chain=mssm_bbhhmm"    
+    ma=$(echo -n "$2" | cut -d '_' -f 3 | sed 's:ma::g')
+    tb=$(echo -n "$2" | cut -d '_' -f 4 | sed 's:tb::g')
+    echo "> Configuring chain MA=$ma TB=$tb" 
+    sed -i'' "s:^ma=None:ma='$ma':" fragment_mssm_bbhhmm.py
+    sed -i'' "s:^tb=None:tb='$tb':" fragment_mssm_bbhhmm.py
+}
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 export SCRAM_ARCH=slc7_amd64_gcc700
