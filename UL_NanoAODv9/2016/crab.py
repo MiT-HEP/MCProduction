@@ -184,6 +184,15 @@ if do.startswith('vbs_'):
     config.General.requestName = 'amarini_UL2016_'+ config.Data.outputPrimaryDataset
     config.JobType.scriptArgs=['chain='+do]
 
+if do.startswith('aqgc_'):
+    import re
+    p1=do.split('_')[1]
+    p2=do.split('_')[2]
+    #aQGC_WMJJZJJjj_EWK_LO_NPle1_
+    config.Data.outputPrimaryDataset = 'aQGC_' + p1.upper()+p2.upper()+'jj_'+'EWK_LO_NPle1_TuneCP5_13TeV-madgraph-pythia8'
+    config.General.requestName = 'amarini_UL2016_'+ config.Data.outputPrimaryDataset
+    config.JobType.scriptArgs=['chain='+do]
+
 #SinglyChargedHiggsGMmodel_HWZ_Zbb_M1500_13TeV-madgraph
 #
 #WWjj_SS_ll_hadronic

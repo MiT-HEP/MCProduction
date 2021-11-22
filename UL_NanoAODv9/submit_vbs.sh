@@ -2,7 +2,8 @@
 
 
 PT="ewk qcd ewk_qcd"
-PROCESSES="wpjj_wmjj wpmjj_wpmjj zbb_wpmjj zjjnob_wpmjj zjjzjj znunu_wpmjj znunu_zjj"
+#PROCESSES="wpjj_wmjj wpmjj_wpmjj zbb_wpmjj zjjnob_wpmjj zjj_zjj znunu_wpmjj znunu_zjj"
+PROCESSES="zjj_zjj"
 
 # make list
 LIST=""

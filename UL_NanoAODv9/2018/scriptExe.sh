@@ -67,7 +67,7 @@ export SCRAM_ARCH=slc7_amd64_gcc700
 
 BASE=$PWD
 
-MYCMSSW=CMSSW_10_6_18
+MYCMSSW=CMSSW_10_6_19
     echo "================= CMSRUN setting up $MYCMSSW ===================="| tee -a job.log
     if [ -r $MYCMSSW/src ] ; then 
      echo release $MYCMSSW already exists
