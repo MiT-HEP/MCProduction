@@ -25,17 +25,18 @@ chain="$2"
 }
 
 [[ "$2" == "chain=aqgc_"* ]] && {
-    #aQGC_WMJJZJJjj_EWK_LO_NPle1_slc7_amd64_gcc700_CMSSW_10_6_19_tarball.tar.xz
 
     a1=$(echo -n "$2" | cut -d '_' -f 2 )
     a2=$(echo -n "$2" | cut -d '_' -f 3 )
 
-    p1=$( echo $a1 | tr [:lower:] [:upper:] | sed 's:NOB:noB:g' | sed 's:NU:Nu:g')
-    p2=$( echo $a2 | tr [:lower:] [:upper:] | sed 's:NOB:noB:g' | sed 's:NU:Nu:g')
+    p1=$( echo $a1 | tr [:lower:] [:upper:] | sed 's:NOB:noB:g' | sed 's:NU:Nu:g' | sed 's:HAD:had:g' | sed 's:LEP:lep:g' )
+    p2=$( echo $a2 | tr [:lower:] [:upper:] | sed 's:NOB:noB:g' | sed 's:NU:Nu:g' | sed 's:HAD:had:g' | sed 's:LEP:lep:g' )
     
     export GRIDPACK=aQGC_${p1}${p2}jj_EWK_LO_NPle1_slc7_amd64_gcc700_CMSSW_10_6_19_tarball.tar.xz
+    echo -n "$2" | grep lep >/dev/null && export GRIDPACK=aQGC_${p1}${p2}JJ_EWK_LO_SM_mjj100_pTj10_slc7_amd64_gcc700_CMSSW_10_6_19_tarball.tar.xz
     chain='chain=vbs_all' ## will use the gridpack variable
-
+    
+    echo "GRIDPACK: $GRIDPACK"
     curl --insecure https://amarini.web.cern.ch/amarini/gridpack/$GRIDPACK --retry 2 -o ./$GRIDPACK
     file $GRIDPACK
 

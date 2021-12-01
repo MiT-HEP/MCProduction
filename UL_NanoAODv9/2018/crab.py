@@ -170,7 +170,20 @@ if do.startswith('vbs_'):
     if p1+"_"+p2 == 'wpmjj_wpmjj':  madspin='-madspin'
     if p1+"_"+p2 == 'zjjnob_wpmjj': madspin='-madspin'
 
-    config.Data.outputPrimaryDataset = p1.upper()+p2.upper()+'jj_'+ewk.upper()+'_LO_TuneCP5_13TeV-madgraph'+madspin+'-pythia8'
+    four=""
+    if ewk == '4fqcd': 
+        ewk='qcd'
+        four="_4f"
+
+    config.Data.outputPrimaryDataset = p1.upper()+p2.upper()+'jj_'+ewk.upper()+'_LO'+four+'_TuneCP5_13TeV-madgraph'+madspin+'-pythia8'
+    config.General.requestName = 'amarini_UL2018_'+ config.Data.outputPrimaryDataset
+    config.JobType.scriptArgs=['chain='+do]
+if do.startswith('aqgc_'):
+    import re
+    p1=do.split('_')[1]
+    p2=do.split('_')[2]
+    #aQGC_WMJJZJJjj_EWK_LO_NPle1_
+    config.Data.outputPrimaryDataset = 'aQGC_' + p1.upper()+p2.upper()+'jj_'+'EWK_LO_NPle1_TuneCP5_13TeV-madgraph-pythia8'
     config.General.requestName = 'amarini_UL2018_'+ config.Data.outputPrimaryDataset
     config.JobType.scriptArgs=['chain='+do]
 

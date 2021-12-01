@@ -37,8 +37,8 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
                                                                                                                                                                                                        
     'Higgs:useBSM = on',
     'POWHEG:nFinal = 1',
-    '35:onMode = off', # turn OFF all H decays
-    '35:onIfMatch = 13 -13', # turn ON H->tautau
+    '36:onMode = off', # turn OFF all H decays
+    '36:onIfMatch = 13 -13', # turn ON H->tautau
 
             ),
         parameterSets = cms.vstring('pythia8CommonSettings',

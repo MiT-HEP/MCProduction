@@ -28,7 +28,7 @@ config.Data.outputDatasetTag ='UL2016-NANOAODSIMv9'
 config.Site.storageSite = 'T2_CH_CERN'
 #config.Site.storageSite = 'T3_US_MIT'
 
-do='xxx'
+do='aqgc_zbb_zjjnob'
 if do=='xxx': raise ValueError('Set do')
 if do=='hbbg' :
     config.General.requestName = 'amarini-UL2016_GGHMH125_powheg'
@@ -180,13 +180,7 @@ if do.startswith('vbs_'):
     if p1+"_"+p2 == 'wpmjj_wpmjj':  madspin='-madspin'
     if p1+"_"+p2 == 'zjjnob_wpmjj': madspin='-madspin'
 
-    four=""
-    if ewk == '4fqcd': 
-        ewk='qcd'
-        four="_4f"
-
-
-    config.Data.outputPrimaryDataset = p1.upper()+p2.upper()+'jj_'+ewk.upper()+'_LO'+four+'_TuneCP5_13TeV-madgraph'+madspin+'-pythia8'
+    config.Data.outputPrimaryDataset = p1.upper()+p2.upper()+'jj_'+ewk.upper()+'_LO_TuneCP5_13TeV-madgraph'+madspin+'-pythia8'
     config.General.requestName = 'amarini_UL2016_'+ config.Data.outputPrimaryDataset
     config.JobType.scriptArgs=['chain='+do]
 
