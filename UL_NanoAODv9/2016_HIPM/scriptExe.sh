@@ -10,13 +10,19 @@ chain="$2"
     a2=$(echo -n "$2" | cut -d '_' -f 3 )
     a3=$(echo -n "$2" | cut -d '_' -f 4,5 )
     
-    p1=$( echo $a1 | tr [:lower:] [:upper:] | sed 's:NOB:noB:g' | sed 's:NU:Nu:g')
-    p2=$( echo $a2 | tr [:lower:] [:upper:] | sed 's:NOB:noB:g' | sed 's:NU:Nu:g')
-    p3=$( echo $a3 | tr [:lower:] [:upper:] | sed 's:NOB:noB:g' | sed 's:NU:Nu:g')
+    p1=$( echo $a1 | tr [:lower:] [:upper:] | sed 's:NOB:noB:g' | sed 's:NU:Nu:g' | sed 's:LEP:lep:g' | sed 's:HAD:had:g')
+    p2=$( echo $a2 | tr [:lower:] [:upper:] | sed 's:NOB:noB:g' | sed 's:NU:Nu:g' | sed 's:LEP:lep:g' | sed 's:HAD:had:g')
+    p3=$( echo $a3 | tr [:lower:] [:upper:] | sed 's:NOB:noB:g' | sed 's:NU:Nu:g' | sed 's:LEP:lep:g' | sed 's:HAD:had:g')
 
     export GRIDPACK=${p1}${p2}jj_${p3}_LO_slc7_amd64_gcc700_CMSSW_10_6_19_tarball.tar.xz
+
+    echo $2 | grep -i lep 2>&1 >/dev/null && {
+        export GRIDPACK=${p1}${p2}JJ_${p3}_LO_SM_mjj100_pTj10_slc7_amd64_gcc700_CMSSW_10_6_19_tarball.tar.xz ;
+    }
+
     chain='chain=vbs_all' ## will use the gridpack variable
     echo "> chain is ${chain}"
+    echo "> gridpack is ${GRIDPACK}"
     curl --insecure https://amarini.web.cern.ch/amarini/gridpack/$GRIDPACK --retry 2 -o ./$GRIDPACK
     file $GRIDPACK
 

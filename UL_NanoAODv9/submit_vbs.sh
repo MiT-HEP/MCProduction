@@ -1,13 +1,15 @@
 #!/bin/bash
 
 
-PT="ewk qcd ewk_qcd"
-
+#PT="ewk qcd ewk_qcd"
 #PROCESSES="wpjj_wmjj wpmjj_wpmjj zbb_wpmjj zjjnob_wpmjj zjj_zjj znunu_wpmjj znunu_zjj"
 
-PT="4fqcd"
-PROCESSES="wpjj_wmjj zbb_wpmjj zjj_wpmjj znunu_wpmjj"
+#PT="4fqcd"
+#PROCESSES="wpjj_wmjj zbb_wpmjj zjj_wpmjj znunu_wpmjj"
 ## 4f QCD
+
+PT="ewk qcd"
+PROCESSES="wmhad_zlep wmlep_wmhad wmlep_zhad wphad_wmlep wphad_zlep wplep_wmhad wplep_wphad wplep_zhad zlep_zhad"
 
 # make list
 LIST=""
