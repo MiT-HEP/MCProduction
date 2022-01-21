@@ -20,11 +20,12 @@ done
 done
 
 ## AQGC BLOCK
-##LIST=""
-##PROCESSES="wmjj_wmjj wmjj_zjj wpjj_wmjj wpjj_wpjj wpjj_zjj zbb_zjjnob zjj_zjj znunu_zjjnob wmlep_wmhad wmlep_zhad wphad_wmlep wplep_wmhad wplep_wphad wplep_zhad"
-##for proc in $PROCESSES; do
-##        LIST+=" aqgc_${proc}"
-##done
+LIST=""
+#PROCESSES="wmjj_wmjj wmjj_zjj wpjj_wmjj wpjj_wpjj wpjj_zjj zbb_zjjnob zjj_zjj znunu_zjjnob wmlep_wmhad wmlep_zhad wphad_wmlep wplep_wmhad wplep_wphad wplep_zhad"
+PROCESSES="zbb_zjjnob zjj_zjj znunu_zjjnob"
+for proc in $PROCESSES; do
+        LIST+=" aqgc_${proc}"
+done
 
 echo Submitting $LIST for all production years
 #exit 0

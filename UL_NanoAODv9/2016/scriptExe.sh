@@ -228,13 +228,13 @@ cmsRun -e -j FrameworkJobReport.xml step7_cfg.py
     echo " exit status for addBranch is $EXIT"
     [ "$EXIT" != "0" ] && rm FrameworkJobReport.xml
     python <<-EOF || { echo "ERROR. Branch not added Correctly"; rm FrameworkJobReport.xml; } 
-	import ROOT
-	import sys
-	fIn=ROOT.TFile.Open("${TMPDIR}/${f##*/}")
-	tIn=fIn.Get("Events")
-	if tIn.GetLeaf("ft9_20p00"): sys.exit(0)
-	else: sys.exit(1)
-	EOF
+import ROOT
+import sys
+fIn=ROOT.TFile.Open("step7.root")
+tIn=fIn.Get("Events")
+if tIn.GetLeaf("ft9_20p00"): sys.exit(0)
+else: sys.exit(1)
+EOF
     
 }
 

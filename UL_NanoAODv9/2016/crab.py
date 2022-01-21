@@ -192,6 +192,7 @@ if do.startswith('vbs_'):
 
 if do.startswith('aqgc_'):
     import re
+    config.JobType.inputFiles.extend( ['addBranch.py'] )
     p1=do.split('_')[1]
     p2=do.split('_')[2]
     #aQGC_WMJJZJJjj_EWK_LO_NPle1_
