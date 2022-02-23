@@ -176,6 +176,9 @@ if do.startswith('vbs_'):
     if ewk == '4fqcd': 
         ewk='qcd'
         four="_4f"
+    if ewk == '4fewk': 
+        ewk='ewk'
+        four="_4f"
 
     config.Data.outputPrimaryDataset = p1.upper()+p2.upper()+'jj_'+ewk.upper()+'_LO'+four+'_TuneCP5_13TeV-madgraph'+madspin+'-pythia8'
     config.General.requestName = 'amarini_UL2016_HIPM_'+ config.Data.outputPrimaryDataset
