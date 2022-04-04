@@ -7,11 +7,15 @@
 #PT="4fqcd"
 ## 4f QCD
 
-PT="ewk qcd"
-PROCESSES="wmhad_zlep wmlep_wmhad wmlep_zhad wphad_wmlep wphad_zlep wplep_wmhad wplep_wphad wplep_zhad zlep_zhad"
+#PT="ewk qcd"
+#PROCESSES="wmhad_zlep wmlep_wmhad wmlep_zhad wphad_wmlep wphad_zlep wplep_wmhad wplep_wphad wplep_zhad zlep_zhad"
 
-PT="4fewk"
-PROCESSES="wpjj_wmjj zbb_wpmjj zjj_wpmjj znunu_wpmjj"
+#PT="4fewk"
+#PROCESSES="wpjj_wmjj zbb_wpmjj zjj_wpmjj znunu_wpmjj"
+
+PT="4fewk 4fqcd"
+#PROCESSES="wplep_wmhad wphad_wmlep"
+PROCESSES="wphad_wmlep"
 
 # make list
 LIST=""
