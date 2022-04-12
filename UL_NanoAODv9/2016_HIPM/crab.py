@@ -31,13 +31,13 @@ config.Site.storageSite = 'T2_CH_CERN'
 do='xxx'
 if do=='xxx': raise ValueError('Set do')
 if do=='hbbg' :
-    config.General.requestName = 'amarini-UL2016_HIPM_GGHMH125_powheg'
-    config.Data.outputPrimaryDataset = 'GluGlu_HiggsZG_Zbb_M125_13TeV_powheg_pythia8'
-    config.JobType.scriptArgs=['chain=hbbg']
+    config.General.requestName = 'amarini-UL2016_HIPM_GGHMH125_amcatnlo'
+    config.Data.outputPrimaryDataset = 'GluGlu_HiggsZG_Zbb_M125_13TeV_amcatnlo_pythia8'
+    config.JobType.scriptArgs=['chain=ggh_hbbg']
 if do=='vbf-hbbg':
     config.General.requestName = 'amarini-UL2016_HIPM_VBFMH125_powheg'
     config.Data.outputPrimaryDataset = 'VBF_HiggsZG_Zbb_M125_13TeV_powheg_pythia8'
-    config.JobType.scriptArgs=['chain=vbf-hbbg']
+    config.JobType.scriptArgs=['chain=vbf_hbbg']
 if do=='hwz1500' :
     config.General.requestName = 'amarini_UL2016_HIPM_SinglyChargedHiggsGMmodel_HWZ_Znn_M1500_madgraph'
     config.Data.outputPrimaryDataset = 'SinglyChargedHiggsGMmodel_HWZ_Znn_M1500_13TeV-madgraph'
